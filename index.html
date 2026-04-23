@@ -324,6 +324,69 @@ function handleSettingClick(name) {
 // पेज लोड होते ही सेटिंग्स तैयार रखें
 document.addEventListener('DOMContentLoaded', loadEliteSettings);
 </script>
+<script>// --- 1. SMART UTILITY HUB (Calculators & Tools) ---
+function openTool(toolId) {
+    if ("vibrate" in navigator) navigator.vibrate(40);
+    const actions = {
+        'gst': () => window.open('https://www.cleartax.in/s/gst-calculator', '_blank'),
+        'sip': () => window.open('https://groww.in/calculators/sip-calculator', '_blank'),
+        'emi': () => window.open('https://emicalculator.net/', '_blank'),
+        'age': () => window.open('https://www.calculator.net/age-calculator.html', '_blank'),
+        'speed': () => window.open('https://www.fast.com', '_blank'),
+        'myip': () => fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => alert("Your IP: " + d.ip)),
+        'qr': () => alert("Starting QR Scanner... Accessing Camera"),
+        'pass': () => alert("Gen: " + Math.random().toString(36).slice(-10).toUpperCase()),
+        'bhopal': () => window.location.href = 'tel:07552542222',
+        'gas': () => window.open('https://my.ebharatgas.com/', '_blank'),
+        'unit': () => alert("Unit Converter Active")
+    };
+    (actions[toolId] || (() => alert(toolId + " is activating...")))();
+}
+
+// --- 2. EDU-TECH & CODING HUB (Academic Features) ---
+function openEdu(id) {
+    if ("vibrate" in navigator) navigator.vibrate(30);
+    const edu = {
+        'js-console': () => window.open('https://onecompiler.com/javascript', '_blank'),
+        'bu-results': () => window.open('http://www.bubhopal.ac.in/1068/Online-Results', '_blank'),
+        'roadmap': () => window.open('https://roadmap.sh/', '_blank'),
+        'internship': () => window.open('https://internshala.com/', '_blank'),
+        'cgpa': () => alert("CGPA Calculator: Entry values to calculate"),
+        'ai-solver': () => document.getElementById('ai-query').focus(),
+        'syllabus': () => alert("Syllabus for B.Sc CS loading..."),
+        'old-papers': () => alert("BU Bhopal Previous Year Papers loading...")
+    };
+    (edu[id] || (() => alert("Educational Module: " + id)))();
+}
+
+// --- 3. CHILL ZONE & TIME PASS (Interactive Games) ---
+function playGame(game) {
+    if ("vibrate" in navigator) navigator.vibrate(30);
+    if(game === 'dice') {
+        const roll = Math.floor(Math.random() * 6) + 1;
+        alert("🎲 Dice Rolled: " + roll);
+    } else if(game === 'coin') {
+        alert("🪙 Result: " + (Math.random() > 0.5 ? "HEADS" : "TAILS"));
+    } else if(game === 'joke') {
+        const jokes = ["Why do programmers prefer dark mode? Because light attracts bugs!", "Hardware: The parts of a computer that can be kicked."];
+        alert(jokes[Math.floor(Math.random() * jokes.length)]);
+    } else {
+        alert("Opening " + game + "... Enjoy your break!");
+    }
+}
+
+// --- 4. EMERGENCY & SOS LOGIC ---
+function sendSOS() {
+    if ("vibrate" in navigator) navigator.vibrate([100, 50, 100, 50, 100]);
+    const phone = "7869969190"; // Your Number
+    const msg = "🚨 EMERGENCY SOS! I need help. Share my live location.";
+    window.open(`https://wa.me/91${phone}?text=${msg}`, '_blank');
+}
+
+function triggerSiren() {
+    const audio = new Audio('https://www.soundjay.com/buttons/beep-01a.mp3');
+    audio.play().catch(() => alert("📢 Siren Sound Active!"));
+}</script>
 <script src="script.js"></script>
 </body>
 </html>
