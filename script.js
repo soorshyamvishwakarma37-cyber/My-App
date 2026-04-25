@@ -112,3 +112,5 @@ window.onpopstate = () => {
 
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 function exitNow() { window.location.href = "about:blank"; }
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2118306969787937"
+     crossorigin="anonymous"></script>
