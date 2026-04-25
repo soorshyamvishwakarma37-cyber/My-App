@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manik9fest.json">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<div id="install-banner" class="modal-overlay">
+ <div id="hard-install-overlay" class="modal-overlay" style="display: none;">
     <div class="glass-modal">
-        <h3>Install SewaAstra</h3>
-        <p>बेहतर अनुभव के लिए इंस्टॉल करें।</p>
+        <div class="modal-icon" style="font-size: 50px;">🚩</div>
+        <h2 style="margin: 10px 0; color: #FF6600;">SewaAstra Install करें</h2>
+        <p>बेहतर सर्विस और तेज़ एक्सेस के लिए ऐप को होम स्क्रीन पर जोड़ें।</p>
+        
         <div class="modal-btns">
-            <button class="btn-sec" onclick="closeModal('install-banner')">बाद में</button>
-            <button class="btn-bhagwa" onclick="installApp()">अभी इंस्टॉल करें</button>
+            <button class="btn-sec" onclick="closeInstallPopup()">बाद में</button>
+            <button class="btn-bhagwa" id="btn-real-install">अभी इंस्टॉल करें</button>
         </div>
     </div>
 </div>
