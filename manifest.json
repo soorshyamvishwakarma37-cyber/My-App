@@ -1,13 +1,13 @@
-{
-  "name": "SmartBhopal SuperApp",
-  "short_name": "SmartBhopal",
-  "start_url": "index.html",
+ {
+  "name": "SewaAstra Home",
+  "short_name": "SewaAstra",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0b0e14",
-  "theme_color": "#6366f1",
+  "background_color": "#FF9933",
+  "theme_color": "#FF9933",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/1160/1160358.png",
       "sizes": "512x512",
       "type": "image/png"
     }

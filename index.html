@@ -2,391 +2,67 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SewaAstra Elite | 25+ Features</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="elite-nav">
-    <div class="nav-content">
-        <h1 class="nav-logo">SewaAstra</h1>
-        
-        <div class="nav-search">
-            <input type="text" id="elite-search" placeholder="Search tools, AI or games..." onkeyup="masterSearch()">
-            <div id="search-drop" class="search-results"></div>
+
+<div id="install-banner" class="modal-overlay">
+    <div class="glass-modal">
+        <h3>Install SewaAstra</h3>
+        <p>बेहतर अनुभव के लिए इंस्टॉल करें।</p>
+        <div class="modal-btns">
+            <button class="btn-sec" onclick="closeModal('install-banner')">बाद में</button>
+            <button class="btn-bhagwa" onclick="installApp()">अभी इंस्टॉल करें</button>
         </div>
-
-        <div class="triple-dot" onclick="toggleEliteMenu()">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
-</nav>
-
-<div id="elite-drawer" class="drawer-panel">
-    <div class="drawer-header">
-        <div class="user-info">
-            <div class="avatar">U</div>
-            <div>
-                <h4>Premium User</h4>
-                <small>Bhopal, MP</small>
-            </div>
-        </div>
-        <button class="close-x" onclick="toggleEliteMenu()">×</button>
-    </div>
-    
-    <div class="drawer-scroll" id="settings-container">
-        </div>
-</div>
-
-<div id="nav-overlay" class="overlay-blur" onclick="toggleEliteMenu()"></div>
-
-<div class="widgets-row">
-    <div class="widget-glass">
-        <small>Market Gold</small>
-        <h2 id="gold-val">fetching...</h2>
-    </div>
-
-    <div class="widget-glass">
-        <small>Bhopal Temp</small>
-        <h2 id="temp-val">--°C</h2>
     </div>
 </div>
 
-    <header class="hero">
-        <h1 id="greet">नमस्ते!</h1>
-        <div id="clock">00:00:00</div>
-        <div class="ticker-box">
-            <marquee>Gold: ₹74.5k | Silver: ₹91k | Petrol: ₹108.6 | SewaAstra Pro Version 2.0 Live!</marquee>
+<div id="exit-modal" class="modal-overlay">
+    <div class="glass-modal">
+        <h3>Exit SewaAstra?</h3>
+        <div class="modal-btns">
+            <button class="btn-sec" onclick="closeModal('exit-modal')">नहीं</button>
+            <button class="btn-danger" onclick="exitNow()">हाँ</button>
+        </div>
+    </div>
+</div>
+
+<div id="login-layer" class="full-screen-center">
+    <button class="btn-bhagwa login-btn" onclick="showScreen('home')">🚀 Login to Dashboard</button>
+</div>
+
+<div id="app-content" style="display:none;">
+    <header class="bhagwa-header">
+        <div class="nav-row">
+            <span>☰</span> <b>SewaAstra Home</b> <span onclick="showScreen('profile')">👤</span>
         </div>
     </header>
 
+    <div id="home-section">
+        <div class="label">🚩 FINANCE & UTILITY</div> <div class="grid" id="grid-1"></div>
+        <div class="label">🎓 EDUCATION & TOOLS</div> <div class="grid" id="grid-2"></div>
+        <div class="label">🌟 LIFESTYLE & FOOD</div> <div class="grid" id="grid-3"></div>
+    </div>
 
-<div class="market-ticker">
-    <marquee id="news-ticker">खबरें लोड हो रही हैं... 📡</marquee>
+    <div id="profile-section" style="display:none; text-align:center; padding:40px 20px;">
+        <div class="profile-card">
+            <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" width="100">
+            <h2>Shoorshyam Vishwakarma</h2>
+            <p>Founder, SewaAstra</p>
+            <button onclick="location.reload()" class="btn-danger" style="margin-top:20px; padding:10px 20px; border-radius:10px; border:none;">Logout</button>
+        </div>
+    </div>
+
+    <div style="height:80px;"></div>
+    <footer class="footer-nav">
+        <div class="nav-item active" id="nav-home" onclick="showScreen('home')">🏠<span>Home</span></div>
+        <div class="nav-item" id="nav-profile" onclick="showScreen('profile')">👤<span>Profile</span></div>
+    </footer>
 </div>
-<section class="mega-shopping-container">
-    <div class="reward-header">
-        <div class="header-text">
-            <h2>💎 SewaAstra Rewards</h2>
-            <p>Shop & Earn <span class="highlight">₹500+ Cashback</span> Daily</p>
-        </div>
-        <div class="wallet-badge">₹0.00</div>
-    </div>
 
-    <div class="featured-grid">
-        <div class="glass-shop-card" onclick="openAffiliate('AMAZON')">
-            <div class="discount-tag">12% Off</div>
-            <img src="https://img.icons8.com/color/96/amazon.png" alt="Amazon">
-            <span>Amazon</span>
-        </div>
-        <div class="glass-shop-card" onclick="openAffiliate('FLIPKART')">
-            <div class="discount-tag">₹50 Back</div>
-            <img src="https://img.icons8.com/color/96/flipkart.png" alt="Flipkart">
-            <span>Flipkart</span>
-        </div>
-        <div class="glass-shop-card" onclick="openAffiliate('ZOMATO')">
-            <div class="discount-tag">Free Del.</div>
-            <img src="https://img.icons8.com/color/96/zomato.png" alt="Zomato">
-            <span>Zomato</span>
-        </div>
-        <div class="glass-shop-card more-btn-active" onclick="showMegaList()">
-            <div class="more-glow"></div>
-            <div class="icon-circle">
-                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            </div>
-            <span>60+ Apps</span>
-        </div>
-    </div>
-
-    <div id="mega-list-panel" class="mega-panel">
-        <div class="panel-header">
-            <h3>Explore 60+ Stores</h3>
-            <button onclick="closeMegaList()">✕</button>
-        </div>
-        <div class="mini-apps-container" id="mini-apps-grid">
-            </div>
-    </div>
-</section>
-
-<section class="mega-hub">
-    <h2 class="section-title">Smart Utility Hub <span class="badge">20+ Tools</span></h2>
-    
-    <div class="utility-grid">
-        <div class="u-card" onclick="openTool('gst')"><span>📊</span><p>GST Calc</p></div>
-        <div class="u-card" onclick="openTool('sip')"><span>📈</span><p>SIP Plan</p></div>
-        <div class="u-card" onclick="openTool('emi')"><span>🏠</span><p>Loan EMI</p></div>
-        <div class="u-card" onclick="openTool('age')"><span>🎂</span><p>Age Calc</p></div>
-
-        <div class="u-card" onclick="openTool('bmi')"><span>⚖️</span><p>BMI Info</p></div>
-        <div class="u-card" onclick="openTool('water')"><span>💧</span><p>Water Rem</p></div>
-        <div class="u-card" onclick="openTool('step')"><span>🏃</span><p>Step Count</p></div>
-        <div class="u-card" onclick="openTool('med')"><span>💊</span><p>Medicine</p></div>
-
-        <div class="u-card" onclick="openTool('ip')"><span>🌐</span><p>My IP</p></div>
-        <div class="u-card" onclick="openTool('speed')"><span>🚀</span><p>Speed Test</p></div>
-        <div class="u-card" onclick="openTool('qr')"><span>🔳</span><p>QR Scanner</p></div>
-        <div class="u-card" onclick="openTool('pass')"><span>🔐</span><p>Pass Gen</p></div>
-
-        <div class="u-card" onclick="openTool('unit')"><span>📏</span><p>Unit Conv</p></div>
-        <div class="u-card" onclick="openTool('curr')"><span>💱</span><p>Currency</p></div>
-        <div class="u-card" onclick="openTool('binary')"><span>🔢</span><p>Binary Conv</p></div>
-        <div class="u-card" onclick="openTool('text')"><span>🔤</span><p>Word Count</p></div>
-
-        <div class="u-card red-pulse" onclick="sendSOS()"><span>🚨</span><p>SOS Send</p></div>
-        <div class="u-card" onclick="openTool('traffic')"><span>🚦</span><p>Traffic</p></div>
-        <div class="u-card" onclick="openTool('bhopal')"><span>📍</span><p>Bhopal No.</p></div>
-        <div class="u-card" onclick="openTool('gas')"><span>🔥</span><p>Gas Book</p></div>
-        
-        <div class="u-card" onclick="openTool('vault')"><span>📁</span><p>Doc Vault</p></div>
-        <div class="u-card" onclick="openTool('task')"><span>📝</span><p>Quick Task</p></div>
-    </div>
-</section>
-
-<section class="edu-hub">
-    <h2 class="section-title">🎓 Edu-Tech & Coding Hub <span class="badge">25+ Features</span></h2>
-    
-    <div class="utility-grid">
-        <div class="u-card purple-glow" onclick="openEdu('binary')"><span>🔢</span><p>Binary Conv</p></div>
-        <div class="u-card purple-glow" onclick="openEdu('js-run')"><span>js</span><p>JS Console</p></div>
-        <div class="u-card purple-glow" onclick="openEdu('ascii')"><span>#</span><p>ASCII Finder</p></div>
-        <div class="u-card purple-glow" onclick="openEdu('colors')"><span>🎨</span><p>Hex Codes</p></div>
-
-        <div class="u-card blue-glow" onclick="openEdu('cgpa')"><span>📈</span><p>CGPA Calc</p></div>
-        <div class="u-card blue-glow" onclick="openEdu('perc')"><span>%</span><p>Percentage</p></div>
-        <div class="u-card blue-glow" onclick="openEdu('scientific')"><span>🧮</span><p>Sci-Calc</p></div>
-        <div class="u-card blue-glow" onclick="openEdu('stats')"><span>📊</span><p>Stats Tool</p></div>
-
-        <div class="u-card green-glow" onclick="openEdu('pomodoro')"><span>🍅</span><p>Pomodoro</p></div>
-        <div class="u-card green-glow" onclick="openEdu('focus')"><span>🎧</span><p>Focus Lo-Fi</p></div>
-        <div class="u-card green-glow" onclick="openEdu('translate')"><span>🌐</span><p>Translate</p></div>
-        <div class="u-card green-glow" onclick="openEdu('dictionary')"><span>📖</span><p>Dictionary</p></div>
-
-        <div class="u-card gold-glow" onclick="openEdu('resume')"><span>📄</span><p>Resume Tips</p></div>
-        <div class="u-card gold-glow" onclick="openEdu('roadmap')"><span>🗺️</span><p>CS Roadmap</p></div>
-        <div class="u-card gold-glow" onclick="openEdu('intern')"><span>🚀</span><p>Internships</p></div>
-        <div class="u-card gold-glow" onclick="openEdu('projects')"><span>💻</span><p>Project Ideas</p></div>
-
-        <div class="u-card red-glow" onclick="openEdu('syllabus')"><span>📚</span><p>Syllabus</p></div>
-        <div class="u-card red-glow" onclick="openEdu('exam-date')"><span>🗓️</span><p>Exam Dates</p></div>
-        <div class="u-card red-glow" onclick="openEdu('results')"><span>🏆</span><p>BU Results</p></div>
-        <div class="u-card red-glow" onclick="openEdu('pyq')"><span>📝</span><p>Old Papers</p></div>
-
-        <div class="u-card" onclick="openEdu('ai-solve')"><span>🧠</span><p>AI Solver</p></div>
-        <div class="u-card" onclick="openEdu('plag')"><span>🔍</span><p>Plag-Check</p></div>
-        <div class="u-card" onclick="openEdu('cite')"><span>📌</span><p>Citation</p></div>
-        <div class="u-card" onclick="openEdu('quiz')"><span>❓</span><p>Daily Quiz</p></div>
-    </div>
-</section>
-
-<section class="chill-zone">
-    <h2 class="section-title">🎮 Chill Zone & Timepass <span class="badge">Fun Mode</span></h2>
-    
-    <div class="utility-grid">
-        <div class="u-card fun-glow" onclick="playGame('tictactoe')"><span>❌</span><p>TicTacToe</p></div>
-        <div class="u-card fun-glow" onclick="playGame('rps')"><span>✊</span><p>Stone Paper</p></div>
-        <div class="u-card fun-glow" onclick="playGame('dice')"><span>🎲</span><p>Roll Dice</p></div>
-        <div class="u-card fun-glow" onclick="playGame('flip')"><span>🪙</span><p>Coin Flip</p></div>
-
-        <div class="u-card mood-glow" onclick="chill('joke')"><span>😂</span><p>Random Joke</p></div>
-        <div class="u-card mood-glow" onclick="chill('fact')"><span>💡</span><p>Cool Facts</p></div>
-        <div class="u-card mood-glow" onclick="chill('quote')"><span>✨</span><p>Vibe Check</p></div>
-        <div class="u-card mood-glow" onclick="chill('meme')"><span>🖼️</span><p>Meme Time</p></div>
-
-        <div class="u-card tech-glow" onclick="chill('bubble')"><span>🫧</span><p>Pop Bubbles</p></div>
-        <div class="u-card tech-glow" onclick="chill('draw')"><span>🎨</span><p>Doodle Pad</p></div>
-        <div class="u-card tech-glow" onclick="chill('magic')"><span>🔮</span><p>Magic Ball</p></div>
-        <div class="u-card tech-glow" onclick="chill('sound')"><span>🎵</span><p>ASMR Sound</p></div>
-
-        <div class="u-card red-glow" onclick="chill('bhopal-food')"><span>🥘</span><p>What to Eat?</p></div>
-        <div class="u-card red-glow" onclick="chill('visit')"><span>📸</span><p>Travel Spot</p></div>
-        <div class="u-card red-glow" onclick="chill('news-light')"><span>📰</span><p>Viral News</p></div>
-        <div class="u-card red-glow" onclick="chill('events')"><span>🎉</span><p>Local Events</p></div>
-
-        <div class="u-card" onclick="chill('spin')"><span>🎡</span><p>Spinner</p></div>
-        <div class="u-card" onclick="chill('piano')"><span>🎹</span><p>Mini Piano</p></div>
-        <div class="u-card" onclick="chill('scratcher')"><span>🎟️</span><p>Scratch Card</p></div>
-        <div class="u-card" onclick="chill('confetti')"><span>🎊</span><p>Celebrate!</p></div>
-    </div>
-</section>
-<section class="sewa-astra sos-dashboard">
-    <div class="sos-header">
-        <div class="emergency-pulse">🚨</div>
-        <h2>Emergency Command Center</h2>
-        <p>आपकी सुरक्षा, हमारी प्राथमिकता</p>
-    </div>
-
-    <div class="sos-actions">
-        <button class="sos-item red" onclick="sendSOS()">
-            <span>📍</span>
-            <p>Send Live Location</p>
-        </button>
-        <button class="sos-item blue" onclick="window.location.href='tel:100'">
-            <span>📞</span>
-            <p>Call Police (100)</p>
-        </button>
-        <button class="sos-item orange" onclick="window.location.href='tel:108'">
-            <span>🚑</span>
-            <p>Ambulance (108)</p>
-        </button>
-        <button class="sos-item grey" onclick="triggerSiren()">
-            <span>🔊</span>
-            <p>Loud Siren</p>
-        </button>
-    </div>
-
-    <div class="safety-contacts glass-card">
-        <h3>Quick Contacts</h3>
-        <input type="number" id="emergency-phone" placeholder="Emergency No. (Set here)">
-    </div>
-</section>
-
-<section class="ai-hub">
-    <div class="ai-header">
-        <div class="ai-icon-anim">🤖</div>
-        <h2>SewaAstra AI Search</h2>
-        <p>Internet-Powered Accurate Intelligence</p>
-    </div>
-
-    <div id="ai-chat-results" class="chat-display">
-        <div class="bot-msg">नमस्ते! मैं इंटरनेट से सटीक जानकारी खोज सकता हूँ। आज आप क्या जानना चाहते हैं?</div>
-    </div>
-
-    <div class="ai-input-wrapper">
-        <input type="text" id="ai-query" placeholder="Ask anything (e.g. भोपाल का ताज़ा गोल्ड रेट)...">
-        <button onclick="searchAI()" id="ai-send-btn">🚀</button>
-    </div>
-</section>
-
-<section class="card glass-card">
-    <h3>🗺 Live Traffic Map</h3>
-    <div id="map-frame">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d58654.5976579893!2d77.4126!3d23.2599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="200" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
-</section>
-
-    <div class="terminal">
-        <div class="term-head">NOTES_LOG_V2.0 <span class="blink">|</span></div>
-        <textarea id="notes" oninput="saveNote()" placeholder="Start typing..."></textarea>
-    </div>
- 
-</div>
-<script>// 30+ Elite Multi-Utility Settings
-const eliteSettings = [
-    "👤 My Profile", "💰 Wallet & Earnings", "💎 Reward Points", "🔔 Notification Center",
-    "🌙 Dark Mode", "🔐 Privacy Lock", "🌐 App Language", "📊 Data Usage",
-    "📱 Linked Devices", "💾 Cloud Backup", "📁 Private Vault", "🛡️ Security Shield",
-    "🎁 Refer & Earn", "🚀 System Speedup", "🧹 Clear Junk Files", "📈 Market Insights",
-    "🎧 Live Support", "📝 Personal Notes", "📍 Manage Addresses", "🧪 Beta Features",
-    "📅 Event Planner", "⚡ Quick Actions", "💳 Saved Cards", "🔍 Search History",
-    "📉 Usage Analytics", "🎮 Game Settings", "🎓 Education Prefs", "🤖 AI Settings",
-    "📜 Terms & Conditions", "ℹ️ Version Info", "🚪 Log Out"
-];
-
-function toggleEliteMenu() {
-    const drawer = document.getElementById('elite-drawer');
-    const overlay = document.getElementById('nav-overlay');
-    
-    // Toggle Class
-    drawer.classList.toggle('open');
-    
-    // Display Overlay
-    if (drawer.classList.contains('open')) {
-        overlay.style.display = 'block';
-        // जब मेनू खुले, तभी सेटिंग्स लोड करें (Back-up trigger)
-        loadEliteSettings();
-    } else {
-        overlay.style.display = 'none';
-    }
-
-    if ("vibrate" in navigator) navigator.vibrate(30);
-}
-
-function loadEliteSettings() {
-    const container = document.getElementById('settings-container');
-    if (container) {
-        // 30+ सेटिंग्स को HTML में बदलना
-        container.innerHTML = eliteSettings.map(item => `
-            <div class="set-item" onclick="handleSettingClick('${item}')">
-                ${item}
-            </div>
-        `).join('');
-    }
-}
-
-function handleSettingClick(name) {
-    console.log("Setting Clicked: " + name);
-    // यहाँ आप हर सेटिंग के लिए अलग काम (जैसे पेज खोलना) जोड़ सकते हैं
-    alert(name + " feature coming soon in next update!");
-}
-
-// पेज लोड होते ही सेटिंग्स तैयार रखें
-document.addEventListener('DOMContentLoaded', loadEliteSettings);
-</script>
-<script>// --- 1. SMART UTILITY HUB (Calculators & Tools) ---
-function openTool(toolId) {
-    if ("vibrate" in navigator) navigator.vibrate(40);
-    const actions = {
-        'gst': () => window.open('https://www.cleartax.in/s/gst-calculator', '_blank'),
-        'sip': () => window.open('https://groww.in/calculators/sip-calculator', '_blank'),
-        'emi': () => window.open('https://emicalculator.net/', '_blank'),
-        'age': () => window.open('https://www.calculator.net/age-calculator.html', '_blank'),
-        'speed': () => window.open('https://www.fast.com', '_blank'),
-        'myip': () => fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => alert("Your IP: " + d.ip)),
-        'qr': () => alert("Starting QR Scanner... Accessing Camera"),
-        'pass': () => alert("Gen: " + Math.random().toString(36).slice(-10).toUpperCase()),
-        'bhopal': () => window.location.href = 'tel:07552542222',
-        'gas': () => window.open('https://my.ebharatgas.com/', '_blank'),
-        'unit': () => alert("Unit Converter Active")
-    };
-    (actions[toolId] || (() => alert(toolId + " is activating...")))();
-}
-
-// --- 2. EDU-TECH & CODING HUB (Academic Features) ---
-function openEdu(id) {
-    if ("vibrate" in navigator) navigator.vibrate(30);
-    const edu = {
-        'js-console': () => window.open('https://onecompiler.com/javascript', '_blank'),
-        'bu-results': () => window.open('http://www.bubhopal.ac.in/1068/Online-Results', '_blank'),
-        'roadmap': () => window.open('https://roadmap.sh/', '_blank'),
-        'internship': () => window.open('https://internshala.com/', '_blank'),
-        'cgpa': () => alert("CGPA Calculator: Entry values to calculate"),
-        'ai-solver': () => document.getElementById('ai-query').focus(),
-        'syllabus': () => alert("Syllabus for B.Sc CS loading..."),
-        'old-papers': () => alert("BU Bhopal Previous Year Papers loading...")
-    };
-    (edu[id] || (() => alert("Educational Module: " + id)))();
-}
-
-// --- 3. CHILL ZONE & TIME PASS (Interactive Games) ---
-function playGame(game) {
-    if ("vibrate" in navigator) navigator.vibrate(30);
-    if(game === 'dice') {
-        const roll = Math.floor(Math.random() * 6) + 1;
-        alert("🎲 Dice Rolled: " + roll);
-    } else if(game === 'coin') {
-        alert("🪙 Result: " + (Math.random() > 0.5 ? "HEADS" : "TAILS"));
-    } else if(game === 'joke') {
-        const jokes = ["Why do programmers prefer dark mode? Because light attracts bugs!", "Hardware: The parts of a computer that can be kicked."];
-        alert(jokes[Math.floor(Math.random() * jokes.length)]);
-    } else {
-        alert("Opening " + game + "... Enjoy your break!");
-    }
-}
-
-// --- 4. EMERGENCY & SOS LOGIC ---
-function sendSOS() {
-    if ("vibrate" in navigator) navigator.vibrate([100, 50, 100, 50, 100]);
-    const phone = "7869969190"; // Your Number
-    const msg = "🚨 EMERGENCY SOS! I need help. Share my live location.";
-    window.open(`https://wa.me/91${phone}?text=${msg}`, '_blank');
-}
-
-function triggerSiren() {
-    const audio = new Audio('https://www.soundjay.com/buttons/beep-01a.mp3');
-    audio.play().catch(() => alert("📢 Siren Sound Active!"));
-}</script>
 <script src="script.js"></script>
 </body>
 </html>
