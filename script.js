@@ -156,3 +156,47 @@ window.addEventListener('appinstalled', () => {
     console.log('SewaAstra सफलतापूर्वक इंस्टॉल हो गया!');
     closeInstallPopup();
 });
+let installPrompt; // प्रॉम्प्ट को स्टोर करने के लिए
+
+// 1. ब्राउज़र के डिफ़ॉल्ट प्रॉम्प्ट को रोकना
+window.addEventListener('beforeinstallprompt', (e) => {
+    // डिफ़ॉल्ट बैनर को रोकें
+    e.preventDefault();
+    // इवेंट को स्टोर करें
+    installPrompt = e;
+    
+    // अब अपना "Hard Popup" दिखाएं (3 सेकंड बाद)
+    setTimeout(() => {
+        document.getElementById('hard-install-overlay').style.display = 'flex';
+    }, 3000);
+});
+
+// 2. 'अभी इंस्टॉल करें' बटन का फंक्शन
+document.getElementById('btn-real-install').addEventListener('click', async () => {
+    if (installPrompt) {
+        // असली ब्राउज़र प्रॉम्प्ट दिखाएं
+        installPrompt.prompt();
+        
+        // यूजर का फैसला चेक करें
+        const { outcome } = await installPrompt.userChoice;
+        console.log(`User response to install: ${outcome}`);
+        
+        // काम हो गया, अब पॉपअप छुपा दें
+        closeInstallPopup();
+        installPrompt = null;
+    } else {
+        // अगर प्रॉम्प्ट नहीं मिला (जैसे पहले से इंस्टॉल है या ब्राउज़र सपोर्ट नहीं करता)
+        alert("SewaAstra पहले से इंस्टॉल है या आपका ब्राउज़र इसे सपोर्ट नहीं करता।");
+        closeInstallPopup();
+    }
+});
+
+function closeInstallPopup() {
+    document.getElementById('hard-install-overlay').style.display = 'none';
+}
+
+// 3. चेक करें कि ऐप पहले से इंस्टॉल तो नहीं
+window.addEventListener('appinstalled', () => {
+    console.log('SewaAstra सफलतापूर्वक इंस्टॉल हो गया!');
+    closeInstallPopup();
+});
