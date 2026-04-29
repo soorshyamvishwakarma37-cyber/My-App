@@ -28,6 +28,70 @@ async function installApp() {
     if (outcome === 'accepted') closeModal('install-banner');
   }
 }
+const self20Tools = [
+    {n:"Age Calc", i:"🎂", id:"age"}, {n:"GST Calc", i:"💰", id:"gst"}, 
+    {n:"Love Test", i:"❤️", id:"love"}, {n:"Day Finder", i:"📅", id:"day"},
+    {n:"Word Count", i:"📝", id:"word"}, {n:"Discount", i:"🏷️", id:"disc"},
+    {n:"Tip Calc", i:"💵", id:"tip"}, {n:"Stopwatch", i:"⏱️", id:"stop"},
+    {n:"Coin Flip", i:"🪙", id:"coin"}, {n:"Dice Roll", i:"🎲", id:"dice"},
+    {n:"Text-Talk", i:"🗣️", id:"speak"}, {n:"Case Swap", i:"Aa", id:"case"},
+    {n:"Bmi Pro", i:"⚖️", id:"bmi"}, {n:"Fuel Cost", i:"⛽", id:"fuel"},
+    {n:"Split Bill", i:"🍕", id:"split"}, {n:"Random No", i:"🔢", id:"rand"},
+    {n:"Days Alive", i:"☀️", id:"alive"}, {n:"Binary", i:"📟", id:"bin"},
+    {n:"Voter Age", i:"🗳️", id:"vote"}, {n:"Astra Help", i:"🚩", id:"help"}
+];
+
+function load20Tools() {
+    let html = "";
+    self20Tools.forEach(tool => {
+        html += `
+        <div class="card" onclick="openAstraTool('${tool.id}', '${tool.n}')" style="background: #fff9f3; border: 1px solid #ffe0b2;">
+            <b>${tool.i}</b>
+            <span>${tool.n}</span>
+        </div>`;
+    });
+    document.getElementById('grid-20-tools').innerHTML = html;
+}
+
+function openAstraTool(id, name) {
+    document.getElementById('tool-popup').style.display = 'flex';
+    document.getElementById('tool-name').innerText = name;
+    let ui = document.getElementById('tool-ui');
+    
+    // Quick Logic for some tools
+    if(id === 'coin') {
+        ui.innerHTML = `<h3>${Math.random() > 0.5 ? "HEADS 🪙" : "TAILS 🪙"}</h3>`;
+    } else if(id === 'dice') {
+        ui.innerHTML = `<h1 style="font-size:50px;">${Math.floor(Math.random() * 6) + 1} 🎲</h1>`;
+    } else if(id === 'gst') {
+        ui.innerHTML = `
+            <input type="number" id="g-amt" class="search-box" placeholder="Amount डालें" style="border:1px solid #ddd;">
+            <button class="btn-bhagwa" style="width:100%; margin-top:10px; padding:10px;" onclick="calcGst()">Calculate (18%)</button>
+            <p id="g-res" style="margin-top:10px; font-weight:bold;"></p>`;
+    } else if(id === 'speak') {
+        ui.innerHTML = `
+            <input type="text" id="t-voice" class="search-box" placeholder="Likho jo bulwana hai" style="border:1px solid #ddd;">
+            <button class="btn-bhagwa" style="width:100%; margin-top:10px; padding:10px;" onclick="talkNow()">Speak 🗣️</button>`;
+    } else if(id === 'love') {
+        ui.innerHTML = `<h3>Love Score: ${Math.floor(Math.random() * 100)}% ❤️</h3>`;
+    } else {
+        ui.innerHTML = `<p>${name} is Ready! SewaAstra Engine processing...</p>`;
+    }
+}
+
+// Sub-functions
+function calcGst() {
+    let a = document.getElementById('g-amt').value;
+    document.getElementById('g-res').innerText = "Total: ₹" + (a * 1.18).toFixed(2);
+}
+
+function talkNow() {
+    let t = document.getElementById('t-voice').value;
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(t));
+}
+
+// Call this inside showScreen('home')
+load20Tools();
 
 // 3. 90 UNIQUE TOOLS DATA
 const tools1 = [
@@ -200,67 +264,3 @@ window.addEventListener('appinstalled', () => {
     console.log('SewaAstra सफलतापूर्वक इंस्टॉल हो गया!');
     closeInstallPopup();
 });
-const self20Tools = [
-    {n:"Age Calc", i:"🎂", id:"age"}, {n:"GST Calc", i:"💰", id:"gst"}, 
-    {n:"Love Test", i:"❤️", id:"love"}, {n:"Day Finder", i:"📅", id:"day"},
-    {n:"Word Count", i:"📝", id:"word"}, {n:"Discount", i:"🏷️", id:"disc"},
-    {n:"Tip Calc", i:"💵", id:"tip"}, {n:"Stopwatch", i:"⏱️", id:"stop"},
-    {n:"Coin Flip", i:"🪙", id:"coin"}, {n:"Dice Roll", i:"🎲", id:"dice"},
-    {n:"Text-Talk", i:"🗣️", id:"speak"}, {n:"Case Swap", i:"Aa", id:"case"},
-    {n:"Bmi Pro", i:"⚖️", id:"bmi"}, {n:"Fuel Cost", i:"⛽", id:"fuel"},
-    {n:"Split Bill", i:"🍕", id:"split"}, {n:"Random No", i:"🔢", id:"rand"},
-    {n:"Days Alive", i:"☀️", id:"alive"}, {n:"Binary", i:"📟", id:"bin"},
-    {n:"Voter Age", i:"🗳️", id:"vote"}, {n:"Astra Help", i:"🚩", id:"help"}
-];
-
-function load20Tools() {
-    let html = "";
-    self20Tools.forEach(tool => {
-        html += `
-        <div class="card" onclick="openAstraTool('${tool.id}', '${tool.n}')" style="background: #fff9f3; border: 1px solid #ffe0b2;">
-            <b>${tool.i}</b>
-            <span>${tool.n}</span>
-        </div>`;
-    });
-    document.getElementById('grid-20-tools').innerHTML = html;
-}
-
-function openAstraTool(id, name) {
-    document.getElementById('tool-popup').style.display = 'flex';
-    document.getElementById('tool-name').innerText = name;
-    let ui = document.getElementById('tool-ui');
-    
-    // Quick Logic for some tools
-    if(id === 'coin') {
-        ui.innerHTML = `<h3>${Math.random() > 0.5 ? "HEADS 🪙" : "TAILS 🪙"}</h3>`;
-    } else if(id === 'dice') {
-        ui.innerHTML = `<h1 style="font-size:50px;">${Math.floor(Math.random() * 6) + 1} 🎲</h1>`;
-    } else if(id === 'gst') {
-        ui.innerHTML = `
-            <input type="number" id="g-amt" class="search-box" placeholder="Amount डालें" style="border:1px solid #ddd;">
-            <button class="btn-bhagwa" style="width:100%; margin-top:10px; padding:10px;" onclick="calcGst()">Calculate (18%)</button>
-            <p id="g-res" style="margin-top:10px; font-weight:bold;"></p>`;
-    } else if(id === 'speak') {
-        ui.innerHTML = `
-            <input type="text" id="t-voice" class="search-box" placeholder="Likho jo bulwana hai" style="border:1px solid #ddd;">
-            <button class="btn-bhagwa" style="width:100%; margin-top:10px; padding:10px;" onclick="talkNow()">Speak 🗣️</button>`;
-    } else if(id === 'love') {
-        ui.innerHTML = `<h3>Love Score: ${Math.floor(Math.random() * 100)}% ❤️</h3>`;
-    } else {
-        ui.innerHTML = `<p>${name} is Ready! SewaAstra Engine processing...</p>`;
-    }
-}
-
-// Sub-functions
-function calcGst() {
-    let a = document.getElementById('g-amt').value;
-    document.getElementById('g-res').innerText = "Total: ₹" + (a * 1.18).toFixed(2);
-}
-
-function talkNow() {
-    let t = document.getElementById('t-voice').value;
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(t));
-}
-
-// Call this inside showScreen('home')
-load20Tools();
