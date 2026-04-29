@@ -1,26 +1,26 @@
  :root { --bhagwa: #FF9933; --deep: #FF6600; }
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: #fffcf9; overflow-x: hidden; }
+body { background: #fffcf9; }
 
 .full-screen-center { height: 100vh; background: linear-gradient(135deg, var(--bhagwa), var(--deep)); display: flex; align-items: center; justify-content: center; }
-.auth-card { background: white; padding: 40px; border-radius: 40px; text-align: center; width: 85%; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+.auth-card { background: white; padding: 40px; border-radius: 40px; text-align: center; width: 85%; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
 .login-btn { width: 100%; padding: 16px; border-radius: 15px; border: none; background: #333; color: white; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
 
 .bhagwa-header { background: var(--bhagwa); padding: 25px 20px; border-radius: 0 0 35px 35px; position: sticky; top: 0; z-index: 1000; }
-.nav-row { display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 900; margin-bottom: 15px; }
-#searchBar { width: 100%; padding: 12px; border-radius: 12px; border: none; outline: none; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
+.nav-row { display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 900; margin-bottom: 20px; }
+#searchBar { width: 100%; padding: 14px; border-radius: 12px; border: none; outline: none; }
 
-.label { padding: 20px 20px 5px; font-weight: 900; font-size: 11px; text-transform: uppercase; color: #777; letter-spacing: 1px; }
+.label { padding: 20px 20px 5px; color: #777; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
-.card { background: white; padding: 15px 5px; border-radius: 20px; text-align: center; border-bottom: 3.5px solid var(--bhagwa); box-shadow: 0 5px 15px rgba(0,0,0,0.04); }
+.card { background: white; padding: 15px 5px; border-radius: 20px; text-align: center; border-bottom: 3.5px solid var(--bhagwa); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 .card:active { transform: scale(0.9); }
-.card b { font-size: 24px; display: block; margin-bottom: 4px; }
+.card b { font-size: 24px; display: block; margin-bottom: 5px; }
 .card span { font-size: 9px; font-weight: 800; color: #444; }
 
-.footer-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0 30px; border-top: 1px solid #eee; }
+.footer-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #eee; }
 .nav-item { color: #bbb; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
 .nav-item.active { color: var(--deep); }
-.nav-item span { font-size: 10px; font-weight: bold; }
+.nav-item span { font-size: 10px; font-weight: 900; }
 
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(8px); }
 .glass-modal { background: white; padding: 30px; border-radius: 35px; width: 85%; text-align: center; border: 1.5px solid var(--bhagwa); }
