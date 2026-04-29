@@ -3,31 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SewaAstra - 110+ Super App</title>
+    <title>SewaAstra Super App</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="install-overlay" class="modal-overlay" style="display:none;"><div class="glass-modal"><h2>🚩 SewaAstra Install करें</h2><p>होम स्क्रीन पर जोड़ें</p><div class="modal-btns"><button class="btn-sec" onclick="closeModal('install-overlay')">Later</button><button class="btn-bhagwa" id="btn-real-install">Install</button></div></div></div>
-    <div id="exit-modal" class="modal-overlay" style="display:none;"><div class="glass-modal"><h3>Exit App?</h3><div class="modal-btns"><button class="btn-sec" onclick="closeModal('exit-modal')">No</button><button class="btn-danger" onclick="exitNow()">Yes</button></div></div></div>
+    <div id="install-overlay" class="modal-overlay" style="display: none;">
+        <div class="glass-modal">
+            <div style="font-size: 50px;">🚩</div>
+            <h2>SewaAstra Install करें</h2>
+            <p>Home Screen पर जोड़ें और तेज़ एक्सेस पाएं।</p>
+            <div class="modal-btns">
+                <button class="btn-sec" onclick="closeModal('install-overlay')">Later</button>
+                <button class="btn-bhagwa" id="btn-real-install">Install Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="exit-modal" class="modal-overlay" style="display: none;">
+        <div class="glass-modal">
+            <h3>Exit SewaAstra?</h3>
+            <p>क्या आप सच में बाहर जाना चाहते हैं?</p>
+            <div class="modal-btns">
+                <button class="btn-sec" onclick="closeModal('exit-modal')">No</button>
+                <button class="btn-danger" onclick="exitNow()">Yes, Exit</button>
+            </div>
+        </div>
+    </div>
 
     <div id="login-layer" class="full-screen-center">
         <div class="auth-card">
-            <h1>🚩 SewaAstra</h1>
-            <p>Bhopal's Multi-Utility Platform</p><br>
-            <button id="btn-login" class="login-btn">Continue with Google</button>
+            <div style="font-size: 60px;">🚩</div>
+            <h1 style="font-weight: 900;">SewaAstra</h1>
+            <p style="margin-bottom: 30px; opacity: 0.7;">Bhopal's Own Home Service App</p>
+            <button id="btn-login" class="login-btn">
+                <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="20"> Continue with Google
+            </button>
         </div>
     </div>
 
     <div id="app-content" style="display:none;">
         <header class="bhagwa-header">
-            <div class="nav-row"><b>SewaAstra</b> <img id="user-photo-nav" src=""></div>
+            <div class="nav-row">
+                <span>☰</span> <b>SewaAstra</b> 
+                <img id="user-photo-nav" src="" style="width:35px; border-radius:50%; border:2px solid white;">
+            </div>
             <input type="text" id="searchBar" placeholder="Search 110+ services..." onkeyup="filterTools()">
         </header>
 
         <main id="home-section">
-            <div class="label" style="color:#FF6600;">🔥 SELF TOOLS (20)</div>
+            <div class="label" style="color: #FF6600;">🔥 EXCLUSIVE TOOLS (20)</div>
             <div class="grid" id="grid-self"></div>
 
             <div class="label">💼 GOVT & FINANCE (30)</div>
@@ -36,7 +62,7 @@
             <div class="label">🎓 EDUCATION & TECH (30)</div>
             <div class="grid" id="grid-edu"></div>
 
-            <div class="label">🍕 FOOD & LIFESTYLE (30)</div>
+            <div class="label">🍕 LIFESTYLE & FOOD (30)</div>
             <div class="grid" id="grid-life"></div>
         </main>
 
