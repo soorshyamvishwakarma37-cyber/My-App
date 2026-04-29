@@ -93,7 +93,38 @@
         <div class="nav-item" id="nav-profile" onclick="showScreen('profile')">👤<span>Profile</span></div>
     </footer>
 </div>
+<script>
+// --- ASLI GOOGLE LOGIN FUNCTION ---
+function googleLogin() {
+    // 1. Google Provider सेट करें
+    const provider = new firebase.auth.GoogleAuthProvider();
 
+    // 2. पॉपअप खोलें
+    firebase.auth().signInWithPopup(provider).then((result) => {
+        const user = result.user;
+        
+        // 3. डेटा लोकल स्टोरेज में सेव करें ताकि रिफ्रेश पर नाम न हटे
+        localStorage.setItem('sw_name', user.displayName);
+        localStorage.setItem('sw_user', user.email);
+        localStorage.setItem('sw_user_photo', user.photoURL);
+        
+        // 4. UI अपडेट करें
+        document.getElementById('dispName').innerText = user.displayName;
+        document.getElementById('dispMobile').innerText = user.email;
+        updatePhotoUI(user.photoURL);
+        
+        // 5. लॉगिन स्क्रीन हटाएं और टोस्ट दिखाएं
+        showWelcome(user.displayName);
+        setTimeout(() => { 
+            document.getElementById('loginScreen').style.display = 'none'; 
+        }, 1000);
+
+    }).catch((error) => {
+        console.error("Login Error:", error);
+        alert("Google लॉगिन में समस्या आई: " + error.message);
+    });
+}
+</script>
 <script src="script.js"></script>
 </body>
 </html>
