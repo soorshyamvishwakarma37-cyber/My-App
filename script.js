@@ -93,3 +93,17 @@ window.history.pushState(null, null, location.href);
 window.onpopstate = () => document.getElementById('exit-modal').style.display = 'flex';
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 function exitNow() { window.location.href = "about:blank"; }
+function googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    // मोबाइल के लिए Redirect ज्यादा अच्छा काम करता है
+    auth.signInWithRedirect(provider);
+}
+
+// लॉगिन के बाद डेटा वापस पाने के लिए यह कोड भी जोड़ें
+auth.getRedirectResult().then((result) => {
+    if (result.user) {
+        console.log("Logged in via Redirect!");
+    }
+}).catch((error) => {
+    console.error("Redirect Error:", error.message);
+});
