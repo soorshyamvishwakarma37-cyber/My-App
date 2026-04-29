@@ -43,7 +43,20 @@
             <span>☰</span> <b>SewaAstra Home</b> <span onclick="showScreen('profile')">👤</span>
         </div>
     </header>
+<div class="category-block">
+    <div class="label" style="color: #FF6600; font-size: 14px;">🚩 SEWAASTRA SELF-MADE TOOLS (20)</div>
+    <div class="grid" id="grid-20-tools">
+        </div>
+</div>
 
+<div id="tool-popup" class="modal-overlay">
+    <div class="glass-modal">
+        <h3 id="tool-name" style="color: var(--bhagwa);">Tool</h3>
+        <hr style="margin: 15px 0; border: 0.5px solid #eee;">
+        <div id="tool-ui"></div>
+        <button class="btn-sec" style="margin-top: 20px; width: 100%;" onclick="closeModal('tool-popup')">Close</button>
+    </div>
+</div>
     <div id="home-section">
         <div class="label">🚩 FINANCE & UTILITY</div> <div class="grid" id="grid-1"></div>
         <div class="label">🎓 EDUCATION & TOOLS</div> <div class="grid" id="grid-2"></div>
