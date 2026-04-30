@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SewaAstra - Super App</title>
+    <title>SewaAstra Super App</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap" rel="stylesheet">
 </head>
@@ -21,12 +21,17 @@
 
     <div id="login-layer" class="full-screen-center">
         <div class="auth-card">
-            <div style="font-size: 60px;">🚩</div>
-            <h1 style="font-weight: 900;">SewaAstra</h1>
-            <p style="margin-bottom: 30px; opacity: 0.7;">Bhopal's Own Super App</p>
-            <button id="btn-login" class="login-btn">
-                <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width="20"> Login with Google
-            </button>
+            <div style="font-size: 50px;">🚩</div>
+            <h1 style="font-weight: 900; margin-bottom: 20px;">SewaAstra</h1>
+            
+            <div id="auth-inputs">
+                <input type="email" id="user-email" class="input-box" placeholder="Email ID">
+                <input type="password" id="user-pass" class="input-box" placeholder="Password">
+                
+                <button onclick="handleLogin()" class="btn-bhagwa main-btn">Login Now</button>
+                <button onclick="handleSignup()" class="btn-sec main-btn" style="margin-top:10px;">Create New Account</button>
+            </div>
+            <p id="auth-error" style="color:red; font-size:12px; margin-top:10px;"></p>
         </div>
     </div>
 
@@ -34,13 +39,13 @@
         <header class="bhagwa-header">
             <div class="nav-row">
                 <span>☰</span> <b>SewaAstra</b> 
-                <img id="user-photo-nav" src="" style="width:35px; border-radius:50%; border:2px solid white;">
+                <div id="profile-icon">S</div>
             </div>
             <input type="text" id="searchBar" placeholder="Search 110+ services..." onkeyup="filterTools()">
         </header>
 
         <main id="home-section">
-            <div class="label" style="color: #FF6600;">🔥 SEWAASTRA EXCLUSIVE (20)</div>
+            <div class="label" style="color:#FF6600;">🔥 EXCLUSIVE TOOLS (20)</div>
             <div class="grid" id="grid-self"></div>
 
             <div class="label">💼 GOVT & DOCUMENTS (30)</div>
@@ -49,7 +54,7 @@
             <div class="label">🎓 EDUCATION & TECH (30)</div>
             <div class="grid" id="grid-edu"></div>
 
-            <div class="label">🍕 FOOD & LIFESTYLE (30)</div>
+            <div class="label">🍕 LIFESTYLE & FOOD (30)</div>
             <div class="grid" id="grid-life"></div>
         </main>
 
