@@ -1,15 +1,13 @@
- // 1. Firebase Config
-const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT",
-    appId: "YOUR_APP_ID"
+ const firebaseConfig = {
+    apiKey: "AIzaSyAL9dsBvNrp-ijxAk7ZYZcbN0BPaZ5gYtw",
+    authDomain: "https://soorshyamvishwakarma37-cyber.github.io/My-App/",
+    projectId: "sewaastra",
+    appId: "1:211091351218:web:94b1b91178596d04464bab"
 };
-
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// 2. Data for 110 Tools
+// --- DATA: 110 TOOLS ---
 const selfTools = [
     {n:"Age", i:"🎂"}, {n:"QR", i:"📸"}, {n:"GST", i:"💰"}, {n:"Coin", i:"🪙"}, {n:"Love", i:"❤️"},
     {n:"BMI", i:"⚖️"}, {n:"Talk", i:"🗣️"}, {n:"Dice", i:"🎲"}, {n:"Note", i:"🗒️"}, {n:"Unit", i:"🔄"},
@@ -19,23 +17,27 @@ const selfTools = [
 
 const govt30 = Array.from({length: 30}, (_, i) => ({n: "Govt "+(i+1), i: "🆔", u: "https://uidai.gov.in"}));
 const edu30 = Array.from({length: 30}, (_, i) => ({n: "Study "+(i+1), i: "📚", u: "https://google.com"}));
-const life30 = Array.from({length: 30}, (_, i) => ({n: "Service "+(i+1), i: "🛠️", u: "https://zomato.com"}));
+const life30 = Array.from({length: 30}, (_, i) => ({n: "Life "+(i+1), i: "🍕", u: "https://zomato.com"}));
 
-// 3. Login Logic
-const loginBtn = document.getElementById('btn-login');
-if(loginBtn) {
-    loginBtn.onclick = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        // Redirect use kar rahe hain mobile reliability ke liye
-        auth.signInWithRedirect(provider).catch(err => alert(err.message));
-    };
+// --- AUTH FUNCTIONS ---
+function handleSignup() {
+    const email = document.getElementById('user-email').value;
+    const pass = document.getElementById('user-pass').value;
+    auth.createUserWithEmailAndPassword(email, pass)
+        .catch(err => document.getElementById('auth-error').innerText = err.message);
+}
+
+function handleLogin() {
+    const email = document.getElementById('user-email').value;
+    const pass = document.getElementById('user-pass').value;
+    auth.signInWithEmailAndPassword(email, pass)
+        .catch(err => document.getElementById('auth-error').innerText = err.message);
 }
 
 auth.onAuthStateChanged(user => {
     if (user) {
         document.getElementById('login-layer').style.display = 'none';
         document.getElementById('app-content').style.display = 'block';
-        document.getElementById('user-photo-nav').src = user.photoURL;
         renderAll();
     }
 });
@@ -57,7 +59,7 @@ function renderGrid(id, data, isSelf) {
     document.getElementById(id).innerHTML = html;
 }
 
-// 4. Utility Functions
+// --- UTILITIES ---
 function filterTools() {
     let input = document.getElementById('searchBar').value.toLowerCase();
     let cards = document.getElementsByClassName('card');
@@ -70,9 +72,8 @@ function logout() { auth.signOut().then(() => location.reload()); }
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 function exitNow() { window.location.href = "about:blank"; }
 
-// Exit Modal Logic
 window.history.pushState(null, null, location.href);
 window.onpopstate = () => {
     document.getElementById('exit-modal').style.display = 'flex';
     window.history.pushState(null, null, location.href);
-};
+};b
