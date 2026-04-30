@@ -20,13 +20,7 @@ const edu30 = Array.from({length: 30}, (_, i) => ({n: "Study "+(i+1), i: "📚",
 const life30 = Array.from({length: 30}, (_, i) => ({n: "Life "+(i+1), i: "🍕", u: "https://zomato.com"}));
 
 // --- AUTH FUNCTIONS ---
-function handleSignup() {
-    const email = document.getElementById('user-email').value;
-    const pass = document.getElementById('user-pass').value;
-    auth.createUserWithEmailAndPassword(email, pass)
-        .catch(err => document.getElementById('auth-error').innerText = err.message);
-}
-
+ 
 function handleLogin() {
     const email = document.getElementById('user-email').value;
     const pass = document.getElementById('user-pass').value;
