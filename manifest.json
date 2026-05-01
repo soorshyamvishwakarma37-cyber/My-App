@@ -1,10 +1,13 @@
  {
-  "name": "SewaAstra Digital Hub",
+  "name": "SewaAstra Pro Digital Hub",
   "short_name": "SewaAstra",
-  "start_url": "index.html",
+  "description": "Bhopal's Leading Home Service and Digital Tool Platform",
+  "start_url": "/SewaAstra/index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#0f172a",
   "theme_color": "#FF8C00",
+  "orientation": "portrait",
+  "scope": "/SewaAstra/",
   "icons": [
     {
       "src": "icon-192.png",
