@@ -35,21 +35,34 @@ const lifeTools = [
     {n:"Pets", i:"🐕"}, {n:"Events", i:"🎟️"}, {n:"Dating", i:"💖"}, {n:"Recharge", i:"📱"}, {n:"Insurance", i:"🛡️"}
 ];
 
-// 2. Direct Login Function
 function instantLogin() {
     const name = document.getElementById('user-name').value;
     const phone = document.getElementById('user-phone').value;
 
-    if (name.length > 2 && phone.length === 10) {
+    // अगर नाम और नंबर खाली नहीं हैं, तो लॉगिन कर दो
+    if (name !== "" && phone !== "") {
         document.getElementById('login-layer').style.display = 'none';
         document.getElementById('app-content').style.display = 'block';
         
-        // Update Sidebar Info
+        // साइडबार में नाम अपडेट करें
         document.getElementById('display-name').innerText = name;
         document.getElementById('avatar-init').innerText = name.charAt(0).toUpperCase();
         
         renderAll();
 
+        // लॉगिन होते ही तुरंत इंस्टॉल पॉपअप दिखाएं
+        setTimeout(() => {
+            if (deferredPrompt) {
+                document.getElementById('install-modal').style.display = 'flex';
+            } else {
+                // अगर ब्राउज़र सपोर्ट नहीं कर रहा तो भी एक मैसेज दिखा सकते हैं
+                console.log("Install prompt not ready");
+            }
+        }, 1000); 
+    } else {
+        alert("भाई, कृपया अपना नाम और नंबर तो डालो!");
+    }
+}
         // 3. Trigger Install Popup Immediately After Login
         if (deferredPrompt) {
             setTimeout(() => {
