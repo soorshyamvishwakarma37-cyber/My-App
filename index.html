@@ -499,6 +499,41 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
     .then(() => console.log("Service Worker Registered"));
 }</script>
-         
+   <script>let deferredPrompt;
+
+// 1. ब्राउज़र से 'Install' का सिग्नल पकड़ना
+window.addEventListener('beforeinstallprompt', (e) => {
+    // डिफ़ॉल्ट बैनर को रोकना
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // यहाँ आप अपना कोई भी 'Install' बटन दिखा सकते हैं
+    console.log("App is ready to install!");
+    showInstallUI(); 
+});
+
+function showInstallUI() {
+    // मान लीजिए आपके पास 'Menu' में एक इंस्टॉल बटन है
+    const installBtn = document.getElementById('install-app-btn');
+    if(installBtn) {
+        installBtn.style.display = "block";
+        installBtn.addEventListener('click', () => {
+            // इंस्टॉलेशन प्रॉम्प्ट दिखाना
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User installed the app');
+                }
+                deferredPrompt = null;
+            });
+        });
+    }
+}
+
+// 2. Service Worker Register करना (App को ऑफलाइन चलाने के लिए ज़रूरी)
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}</script>      
 </body>
 </html>
