@@ -2,33 +2,40 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
 body { background: #fffcf9; }
 
-.full-screen-center { height: 100vh; background: linear-gradient(135deg, var(--bhagwa), var(--deep)); display: flex; align-items: center; justify-content: center; }
-.auth-card { background: white; padding: 35px; border-radius: 40px; text-align: center; width: 85%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+/* Screens */
+.full-screen-center { height: 100vh; background: linear-gradient(135deg, var(--bhagwa), var(--deep)); display: flex; align-items: center; justify-content: center; position: fixed; width: 100%; z-index: 5000; }
+.auth-card { background: white; padding: 40px; border-radius: 40px; text-align: center; width: 85%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+.input-group input { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: 1px solid #ddd; outline: none; }
+.main-btn { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: 900; cursor: pointer; background: var(--bhagwa); color: white; }
 
-.input-box { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: 1px solid #ddd; outline: none; }
-.main-btn { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: 900; cursor: pointer; }
+/* App UI */
+.bhagwa-header { background: var(--bhagwa); padding: 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; color: white; }
+.nav-row { display: flex; justify-content: space-between; align-items: center; font-weight: 900; margin-bottom: 15px; }
+#profile-icon { width: 35px; height: 35px; background: white; color: var(--deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+#searchBar { width: 100%; padding: 12px; border-radius: 12px; border: none; }
 
-.bhagwa-header { background: var(--bhagwa); padding: 25px 20px; border-radius: 0 0 35px 35px; position: sticky; top: 0; z-index: 1000; }
-.nav-row { display: flex; justify-content: space-between; align-items: center; color: white; font-weight: 900; margin-bottom: 20px; }
-#profile-icon { width: 35px; height: 35px; background: white; color: var(--deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-#searchBar { width: 100%; padding: 14px; border-radius: 12px; border: none; outline: none; }
-
+/* Grid System */
 .label { padding: 20px 20px 5px; color: #777; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
-.card { background: white; padding: 15px 5px; border-radius: 20px; text-align: center; border-bottom: 3.5px solid var(--bhagwa); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.card:active { transform: scale(0.9); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px 20px; }
+.card { background: white; padding: 15px 5px; border-radius: 20px; text-align: center; border-bottom: 4px solid var(--bhagwa); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 .card b { font-size: 24px; display: block; margin-bottom: 5px; }
-.card span { font-size: 9px; font-weight: 800; color: #444; }
+.card span { font-size: 8px; font-weight: 800; color: #444; text-transform: uppercase; }
 
-.footer-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #eee; }
-.nav-item { color: #bbb; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-.nav-item.active { color: var(--deep); }
-.nav-item span { font-size: 10px; font-weight: 900; }
+/* Settings Sidebar */
+.side-panel { position: fixed; left: -100%; top: 0; width: 80%; height: 100%; background: white; z-index: 1000; transition: 0.4s; box-shadow: 10px 0 30px rgba(0,0,0,0.1); }
+.side-panel.active { left: 0; }
+.side-header { background: var(--bhagwa); padding: 50px 20px; color: white; }
+.side-item { padding: 18px 20px; border-bottom: 1px solid #f0f0f0; font-weight: bold; color: #444; font-size: 14px; }
 
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(8px); }
-.glass-modal { background: white; padding: 30px; border-radius: 35px; width: 85%; text-align: center; border: 1.5px solid var(--bhagwa); }
+/* Modals */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 6000; backdrop-filter: blur(5px); }
+.glass-modal { background: white; padding: 30px; border-radius: 30px; width: 80%; text-align: center; }
 .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-.modal-btns button { flex: 1; padding: 14px; border-radius: 15px; border: none; font-weight: 900; }
-.btn-bhagwa { background: var(--bhagwa); color: white; }
+.modal-btns button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-weight: 900; }
 .btn-sec { background: #f0f0f0; }
 .btn-danger { background: #ff4444; color: white; }
+
+/* Footer */
+.footer-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #eee; z-index: 99; }
+.nav-item { color: #ccc; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 900; }
+.nav-item.active { color: var(--deep); }

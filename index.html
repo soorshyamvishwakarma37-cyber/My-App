@@ -9,6 +9,34 @@
 </head>
 <body>
 
+    <!-- 1. Fake Login Screen -->
+    <div id="login-layer" class="full-screen-center">
+        <div class="auth-card">
+            <div style="font-size: 50px;">🚩</div>
+            <h1 style="font-weight: 900;">SewaAstra</h1>
+            <p style="margin-bottom: 25px; opacity: 0.7;">Bhopal's Own Super App</p>
+            <div class="input-group">
+                <input type="text" id="fake-user" placeholder="Mobile or Email">
+            
+            </div>
+            <button onclick="fakeAuth()" class="btn-bhagwa main-btn">Login</button>
+        </div>
+    </div>
+
+    <!-- 2. Install Popup -->
+    <div id="install-modal" class="modal-overlay" style="display: none;">
+        <div class="glass-modal">
+            <div style="font-size: 50px;">📲</div>
+            <h2>SewaAstra Install करें</h2>
+            <p>होम स्क्रीन पर जोड़ें और सुपर फ़ास्ट एक्सेस पाएं।</p>
+            <div class="modal-btns">
+                <button class="btn-sec" onclick="closeModal('install-modal')">Later</button>
+                <button class="btn-bhagwa" id="btn-install-now">Install Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Exit Dialog -->
     <div id="exit-modal" class="modal-overlay" style="display: none;">
         <div class="glass-modal">
             <h3>Exit SewaAstra?</h3>
@@ -19,53 +47,54 @@
         </div>
     </div>
 
-    <div id="login-layer" class="full-screen-center">
-        <div class="auth-card">
-            <div style="font-size: 50px;">🚩</div>
-            <h1 style="font-weight: 900; margin-bottom: 20px;">SewaAstra</h1>
-            
-            <div id="auth-inputs">
-                <input type="email" id="user-email" class="input-box" placeholder="Email ID">
-                <input type="password" id="user-pass" class="input-box" placeholder="Password">
-                
-                <button onclick="handleLogin()" class="btn-bhagwa main-btn">Login Now</button>
-                <button onclick="handleSignup()" class="btn-sec main-btn" style="margin-top:10px;">Create New Account</button>
-            </div>
-            <p id="auth-error" style="color:red; font-size:12px; margin-top:10px;"></p>
+    <!-- 4. Sidebar Menu -->
+    <div id="side-menu" class="side-panel">
+        <div class="side-header">
+            <div class="user-avatar">SA</div>
+            <h3>SewaAstra User</h3>
+        </div>
+        <div class="side-links">
+            <div class="side-item">⚙️ Settings</div>
+            <div class="side-item">👤 Profile</div>
+            <div class="side-item" onclick="alert('v3.0 - Built for Bhopal')">ℹ️ About</div>
+            <div class="side-item" onclick="alert('T&C Applied')">📄 Terms & Conditions</div>
+            <hr>
+            <div class="side-item" style="color:red" onclick="location.reload()">🚪 Logout</div>
         </div>
     </div>
 
+    <!-- 5. App Content -->
     <div id="app-content" style="display:none;">
         <header class="bhagwa-header">
             <div class="nav-row">
-                <span>☰</span> <b>SewaAstra</b> 
-                <div id="profile-icon">S</div>
+                <span onclick="toggleMenu()" style="cursor:pointer">☰</span> 
+                <b>SewaAstra</b> 
+                <div id="profile-icon" onclick="toggleMenu()">SA</div>
             </div>
-            <input type="text" id="searchBar" placeholder="Search 110+ services..." onkeyup="filterTools()">
+            <input type="text" id="searchBar" placeholder="Search 110+ tools..." onkeyup="filterTools()">
         </header>
 
-        <main id="home-section">
-            <div class="label" style="color:#FF6600;">🔥 EXCLUSIVE TOOLS (20)</div>
-            <div class="grid" id="grid-self"></div>
+        <main>
+            <div class="label" style="color:#FF6600;">🔥 SELF TOOLS (20)</div>
+            <div id="grid-self" class="grid"></div>
 
-            <div class="label">💼 GOVT & DOCUMENTS (30)</div>
-            <div class="grid" id="grid-govt"></div>
+            <div class="label">💼 GOVT & FINANCE (30)</div>
+            <div id="grid-govt" class="grid"></div>
 
             <div class="label">🎓 EDUCATION & TECH (30)</div>
-            <div class="grid" id="grid-edu"></div>
+            <div id="grid-edu" class="grid"></div>
 
-            <div class="label">🍕 LIFESTYLE & FOOD (30)</div>
-            <div class="grid" id="grid-life"></div>
+            <div class="label">🍕 LIFESTYLE & UTILITY (30)</div>
+            <div id="grid-life" class="grid"></div>
         </main>
 
         <footer class="footer-nav">
             <div class="nav-item active">🏠<span>Home</span></div>
-            <div class="nav-item" onclick="logout()">🚪<span>Logout</span></div>
+            <div class="nav-item" onclick="toggleMenu()">⚙️<span>Settings</span></div>
+            <div class="nav-item" onclick="location.reload()">🔄<span>Refresh</span></div>
         </footer>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,59 +1,82 @@
- const firebaseConfig = {
-    apiKey: "AIzaSyAL9dsBvNrp-ijxAk7ZYZcbN0BPaZ5gYtw",
-    authDomain: "https://soorshyamvishwakarma37-cyber.github.io/My-App/",
-    projectId: "sewaastra",
-    appId: "1:211091351218:web:94b1b91178596d04464bab"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+ let deferredPrompt;
 
-// --- DATA: 110 TOOLS ---
+// 1. All 110 Tools with Related Icons
 const selfTools = [
-    {n:"Age", i:"🎂"}, {n:"QR", i:"📸"}, {n:"GST", i:"💰"}, {n:"Coin", i:"🪙"}, {n:"Love", i:"❤️"},
-    {n:"BMI", i:"⚖️"}, {n:"Talk", i:"🗣️"}, {n:"Dice", i:"🎲"}, {n:"Note", i:"🗒️"}, {n:"Unit", i:"🔄"},
-    {n:"Fuel", i:"⛽"}, {n:"Stopw", i:"⏱️"}, {n:"Pass", i:"🔐"}, {n:"Speed", i:"🚀"}, {n:"Split", i:"🍕"},
-    {n:"Days", i:"📅"}, {n:"Help", i:"🚩"}, {n:"Calc", i:"🧮"}, {n:"Bus", i:"🚌"}, {n:"Bin", i:"📟"}
+    {n:"Age Calc", i:"🎂"}, {n:"QR Maker", i:"📸"}, {n:"GST Calc", i:"💰"}, {n:"Flip Coin", i:"🪙"}, {n:"Love Meter", i:"❤️"},
+    {n:"BMI Check", i:"⚖️"}, {n:"Text/Voice", i:"🗣️"}, {n:"Dice Roll", i:"🎲"}, {n:"Sticky Note", i:"🗒️"}, {n:"Converter", i:"🔄"},
+    {n:"Petrol Info", i:"⛽"}, {n:"Timer", i:"⏱️"}, {n:"Passwords", i:"🔐"}, {n:"Internet", i:"🚀"}, {n:"Bill Split", i:"🍕"},
+    {n:"Calendar", i:"📅"}, {n:"SOS Help", i:"🚩"}, {n:"Math Calc", i:"🧮"}, {n:"Bus Track", i:"🚌"}, {n:"Hex Code", i:"📟"}
 ];
 
-const govt30 = Array.from({length: 30}, (_, i) => ({n: "Govt "+(i+1), i: "🆔", u: "https://uidai.gov.in"}));
-const edu30 = Array.from({length: 30}, (_, i) => ({n: "Study "+(i+1), i: "📚", u: "https://google.com"}));
-const life30 = Array.from({length: 30}, (_, i) => ({n: "Life "+(i+1), i: "🍕", u: "https://zomato.com"}));
+const govtTools = [
+    {n:"Aadhar", i:"🆔"}, {n:"PAN Card", i:"💳"}, {n:"Voter ID", i:"🗳️"}, {n:"Passport", i:"🛂"}, {n:"Driving", i:"🚗"},
+    {n:"Ration", i:"🌾"}, {n:"Pension", i:"👴"}, {n:"Scholar", i:"🎓"}, {n:"Income", i:"💵"}, {n:"Caste", i:"📜"},
+    {n:"DigiLocker", i:"📂"}, {n:"e-Shram", i:"🏗️"}, {n:"PM Kisan", i:"🚜"}, {n:"Gas Book", i:"🔥"}, {n:"Bill Pay", i:"⚡"},
+    {n:"EPFO", i:"🏦"}, {n:"Ayushman", i:"🏥"}, {n:"Court", i:"⚖️"}, {n:"Police", i:"🚔"}, {n:"Train", i:"🚆"},
+    {n:"Health", i:"💊"}, {n:"Property", i:"🏠"}, {n:"Water", i:"💧"}, {n:"License", i:"🎫"}, {n:"Startup", i:"🚀"},
+    {n:"Labour", i:"👷"}, {n:"Awas Yoj", i:"🏚️"}, {n:"Marriage", i:"💍"}, {n:"Death Cert", i:"⚰️"}, {n:"Birth Cert", i:"👶"}
+];
 
-// --- AUTH FUNCTIONS ---
- 
-function handleLogin() {
-    const email = document.getElementById('user-email').value;
-    const pass = document.getElementById('user-pass').value;
-    auth.signInWithEmailAndPassword(email, pass)
-        .catch(err => document.getElementById('auth-error').innerText = err.message);
-}
+const eduTools = [
+    {n:"Library", i:"📚"}, {n:"Results", i:"📊"}, {n:"Courses", i:"💻"}, {n:"Exam Date", i:"📝"}, {n:"Syllabus", i:"📖"},
+    {n:"Jobs", i:"💼"}, {n:"Resume", i:"📄"}, {n:"Notes", i:"✍️"}, {n:"GK Quiz", i:"🧠"}, {n:"English", i:"🔤"},
+    {n:"Python", i:"🐍"}, {n:"Java", i:"☕"}, {n:"HTML", i:"🌐"}, {n:"Design", i:"🎨"}, {n:"AI Tool", i:"🤖"},
+    {n:"College", i:"🏫"}, {n:"School", i:"🎒"}, {n:"History", i:"🏺"}, {n:"Science", i:"🔬"}, {n:"Maths", i:"📐"},
+    {n:"Space", i:"🚀"}, {n:"News", i:"🗞️"}, {n:"Magz", i:"📔"}, {n:"Scholar", i:"🎖️"}, {n:"Typing", i:"⌨️"},
+    {n:"Editor", i:"🎞️"}, {n:"Cloud", i:"☁️"}, {n:"Database", i:"🗄️"}, {n:"Network", i:"📡"}, {n:"Security", i:"🛡️"}
+];
 
-auth.onAuthStateChanged(user => {
-    if (user) {
+const lifeTools = [
+    {n:"Zomato", i:"🍕"}, {n:"Swiggy", i:"🍔"}, {n:"Booking", i:"🏨"}, {n:"Flights", i:"✈️"}, {n:"Uber", i:"🚕"},
+    {n:"Amazon", i:"📦"}, {n:"Flipkart", i:"🛍️"}, {n:"Netflix", i:"🎬"}, {n:"Spotify", i:"🎵"}, {n:"Cricket", i:"🏏"},
+    {n:"Games", i:"🎮"}, {n:"Weather", i:"⛅"}, {n:"Maps", i:"📍"}, {n:"Recipe", i:"🍲"}, {n:"Gym", i:"🏋️"},
+    {n:"Yoga", i:"🧘"}, {n:"Doctor", i:"👨‍⚕️"}, {n:"Pharmacy", i:"🧪"}, {n:"Saloon", i:"✂️"}, {n:"Plumber", i:"🔧"},
+    {n:"Electric", i:"🔌"}, {n:"Cleaning", i:"🧹"}, {n:"Gardening", i:"🌳"}, {n:"Tailor", i:"🪡"}, {n:"Astrology", i:"🔮"},
+    {n:"Pets", i:"🐕"}, {n:"Events", i:"🎟️"}, {n:"Dating", i:"💖"}, {n:"Recharge", i:"📱"}, {n:"Insurance", i:"🛡️"}
+];
+
+// 2. Fake Logic
+function fakeAuth() {
+    if(document.getElementById('fake-user').value !== "") {
         document.getElementById('login-layer').style.display = 'none';
         document.getElementById('app-content').style.display = 'block';
         renderAll();
-    }
-});
+        setTimeout(() => { if(deferredPrompt) showModal('install-modal'); }, 3000);
+    } else { alert("Enter details!"); }
+}
 
 function renderAll() {
     renderGrid('grid-self', selfTools, true);
-    renderGrid('grid-govt', govt30, false);
-    renderGrid('grid-edu', edu30, false);
-    renderGrid('grid-life', life30, false);
+    renderGrid('grid-govt', govtTools, false);
+    renderGrid('grid-edu', eduTools, false);
+    renderGrid('grid-life', lifeTools, false);
 }
 
 function renderGrid(id, data, isSelf) {
     let html = "";
     data.forEach(t => {
-        html += `<div class="card" onclick="${isSelf ? `alert('${t.n} Tool Active')` : `window.open('${t.u}')`}">
+        html += `<div class="card" onclick="${isSelf ? `alert('${t.n} Tool Active!')` : `window.open('https://google.com/search?q=${t.n}')`}">
             <b>${t.i}</b><span>${t.n}</span>
         </div>`;
     });
     document.getElementById(id).innerHTML = html;
 }
 
-// --- UTILITIES ---
+// 3. System Functions
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+
+document.getElementById('btn-install-now').onclick = () => {
+    if(deferredPrompt) { deferredPrompt.prompt(); closeModal('install-modal'); }
+};
+
+window.history.pushState(null, null, location.href);
+window.onpopstate = () => { showModal('exit-modal'); window.history.pushState(null, null, location.href); };
+
+function toggleMenu() { document.getElementById('side-menu').classList.toggle('active'); }
+function showModal(id) { document.getElementById(id).style.display = 'flex'; }
+function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+function exitNow() { window.location.href = "about:blank"; }
+
 function filterTools() {
     let input = document.getElementById('searchBar').value.toLowerCase();
     let cards = document.getElementsByClassName('card');
@@ -61,13 +84,3 @@ function filterTools() {
         card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
     }
 }
-
-function logout() { auth.signOut().then(() => location.reload()); }
-function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-function exitNow() { window.location.href = "about:blank"; }
-
-window.history.pushState(null, null, location.href);
-window.onpopstate = () => {
-    document.getElementById('exit-modal').style.display = 'flex';
-    window.history.pushState(null, null, location.href);
-};b
