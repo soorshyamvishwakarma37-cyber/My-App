@@ -499,9 +499,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
     .then(() => console.log("Service Worker Registered"));
 }</script>
-</body>
-  <!-- Force Install Popup UI -->
-<div id="install-popup" class="modal-overlay" style="display:none; z-index: 9999;">
+  <div id="install-popup" class="modal-overlay" style="display:none; z-index: 9999;">
     <div class="glass-modal" style="text-align: center; border: 2px solid var(--accent);">
         <div style="font-size: 50px;">📲</div>
         <h2 style="color:var(--accent); margin: 10px 0;">Install SewaAstra</h2>
@@ -561,4 +559,38 @@ window.addEventListener('DOMContentLoaded', () => {
         installPopup.style.display = 'none';
     }
 });</script>
+  <script>document.addEventListener('click', function(e) {
+    // 1. चेक करें कि जिस पर क्लिक हुआ है क्या उसमें "Install" लिखा है?
+    // यह बटन, स्पैन, या पी (p) टैग सबको चेक करेगा
+    const clickedElement = e.target;
+    const btnText = clickedElement.innerText || clickedElement.textContent;
+    const apkLink = "https://freewebsitetoapp.cloudserverbox.com/app-data/free-apps/397134105186/2hlLzNDDbi/app-debug.apk";
+
+    if (btnText && btnText.toLowerCase().includes('install')) {
+        
+        // डिफ़ॉल्ट एक्शन को रोकें (अगर वह कोई लिंक है)
+        e.preventDefault();
+
+        // 2. डाउनलोड शुरू करने का सबसे प्रोफेशनल तरीका
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.href = apkLink;
+        downloadAnchor.download = "SewaAstra_Pro.apk"; // फाइल का नाम जो डाउनलोड होगा
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        document.body.removeChild(downloadAnchor);
+
+        // 3. यूजर को फीडबैक दें (Optional)
+        console.log("SewaAstra APK downloading started...");
+        
+        // अगर आपने कोई पॉपअप बनाया है तो उसे बंद कर दें
+        const popup = document.getElementById('install-popup');
+        if(popup) popup.style.display = 'none';
+    }
+}, true);</script>
+  <!-- यह बटन खुद-ब-खुद काम करेगा -->
+<button class="premium-btn">Install App</button>
+
+<!-- यह टेक्स्ट भी काम करेगा -->
+<span style="cursor:pointer; color:orange;">Click here to Install</span>
+</body>
 </html>
