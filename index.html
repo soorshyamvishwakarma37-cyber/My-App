@@ -9,17 +9,20 @@
 </head>
 <body>
 
-    <!-- 1. Fake Login Screen -->
+    <!-- 1. Fake Login Layer -->
     <div id="login-layer" class="full-screen-center">
         <div class="auth-card">
-            <div style="font-size: 50px;">🚩</div>
-            <h1 style="font-weight: 900;">SewaAstra</h1>
-            <p style="margin-bottom: 25px; opacity: 0.7;">Bhopal's Own Super App</p>
+            <div style="font-size: 50px; margin-bottom: 10px;">🚩</div>
+            <h1 style="font-weight: 900; color: #333;">SewaAstra</h1>
+            <p style="margin-bottom: 25px; opacity: 0.7; font-size: 14px;">Bhopal's Fastest Super App</p>
+            
             <div class="input-group">
-                <input type="text" id="fake-user" placeholder="Mobile or Email">
-                <input type="password" id="fake-pass" placeholder="Password">
+                <input type="text" id="user-name" placeholder="अपना नाम लिखें">
+                <input type="number" id="user-phone" placeholder="मोबाइल नंबर">
             </div>
-            <button onclick="fakeAuth()" class="btn-bhagwa main-btn">Login</button>
+
+            <button onclick="instantLogin()" class="btn-bhagwa main-btn">Login Now</button>
+            <p style="margin-top: 15px; font-size: 11px; color: #888;">No Password Required • Safe & Secure</p>
         </div>
     </div>
 
@@ -27,43 +30,16 @@
     <div id="install-modal" class="modal-overlay" style="display: none;">
         <div class="glass-modal">
             <div style="font-size: 50px;">📲</div>
-            <h2>SewaAstra Install करें</h2>
-            <p>होम स्क्रीन पर जोड़ें और सुपर फ़ास्ट एक्सेस पाएं।</p>
+            <h2>App Install करें</h2>
+            <p>बेहतरीन सर्विस के लिए SewaAstra को अपनी होम स्क्रीन पर जोड़ें।</p>
             <div class="modal-btns">
-                <button class="btn-sec" onclick="closeModal('install-modal')">Later</button>
-                <button class="btn-bhagwa" id="btn-install-now">Install Now</button>
+                <button class="btn-sec" onclick="closeModal('install-modal')">बाद में</button>
+                <button class="btn-bhagwa" id="btn-install-now">इंस्टॉल करें</button>
             </div>
         </div>
     </div>
 
-    <!-- 3. Exit Dialog -->
-    <div id="exit-modal" class="modal-overlay" style="display: none;">
-        <div class="glass-modal">
-            <h3>Exit SewaAstra?</h3>
-            <div class="modal-btns">
-                <button class="btn-sec" onclick="closeModal('exit-modal')">No</button>
-                <button class="btn-danger" onclick="exitNow()">Yes</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 4. Sidebar Menu -->
-    <div id="side-menu" class="side-panel">
-        <div class="side-header">
-            <div class="user-avatar">SA</div>
-            <h3>SewaAstra User</h3>
-        </div>
-        <div class="side-links">
-            <div class="side-item">⚙️ Settings</div>
-            <div class="side-item">👤 Profile</div>
-            <div class="side-item" onclick="alert('v3.0 - Built for Bhopal')">ℹ️ About</div>
-            <div class="side-item" onclick="alert('T&C Applied')">📄 Terms & Conditions</div>
-            <hr>
-            <div class="side-item" style="color:red" onclick="location.reload()">🚪 Logout</div>
-        </div>
-    </div>
-
-    <!-- 5. App Content -->
+    <!-- 3. Main App UI -->
     <div id="app-content" style="display:none;">
         <header class="bhagwa-header">
             <div class="nav-row">
@@ -71,26 +47,39 @@
                 <b>SewaAstra</b> 
                 <div id="profile-icon" onclick="toggleMenu()">SA</div>
             </div>
-            <input type="text" id="searchBar" placeholder="Search 110+ tools..." onkeyup="filterTools()">
+            <input type="text" id="searchBar" placeholder="110+ सेवाएं खोजें..." onkeyup="filterTools()">
         </header>
+
+        <!-- Sidebar -->
+        <div id="side-menu" class="side-panel">
+            <div class="side-header">
+                <div class="user-avatar" id="avatar-init">U</div>
+                <h3 id="display-name">User Name</h3>
+            </div>
+            <div class="side-links">
+                <div class="side-item">⚙️ Settings</div>
+                <div class="side-item" onclick="alert('v3.0 - Built for Bhopal')">ℹ️ About Us</div>
+                <div class="side-item" style="color:red" onclick="location.reload()">🚪 Logout</div>
+            </div>
+        </div>
 
         <main>
             <div class="label" style="color:#FF6600;">🔥 SELF TOOLS (20)</div>
             <div id="grid-self" class="grid"></div>
 
-            <div class="label">💼 GOVT & FINANCE (30)</div>
+            <div class="label">💼 GOVT & DOCUMENTS (30)</div>
             <div id="grid-govt" class="grid"></div>
 
-            <div class="label">🎓 EDUCATION & TECH (30)</div>
+            <div class="label">🎓 EDUCATION (30)</div>
             <div id="grid-edu" class="grid"></div>
 
-            <div class="label">🍕 LIFESTYLE & UTILITY (30)</div>
+            <div class="label">🍕 LIFESTYLE & FOOD (30)</div>
             <div id="grid-life" class="grid"></div>
         </main>
 
         <footer class="footer-nav">
             <div class="nav-item active">🏠<span>Home</span></div>
-            <div class="nav-item" onclick="toggleMenu()">⚙️<span>Settings</span></div>
+            <div class="nav-item" onclick="toggleMenu()">⚙️<span>Menu</span></div>
             <div class="nav-item" onclick="location.reload()">🔄<span>Refresh</span></div>
         </footer>
     </div>
