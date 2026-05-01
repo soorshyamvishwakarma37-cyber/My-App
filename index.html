@@ -485,4 +485,65 @@ if ('serviceWorker' in navigator) {
     .then(() => console.log("Service Worker Registered"));
 }</script>
 </body>
+  <!-- Force Install Popup UI -->
+<div id="install-popup" class="modal-overlay" style="display:none; z-index: 9999;">
+    <div class="glass-modal" style="text-align: center; border: 2px solid var(--accent);">
+        <div style="font-size: 50px;">📲</div>
+        <h2 style="color:var(--accent); margin: 10px 0;">Install SewaAstra</h2>
+        <p style="font-size: 14px; color: #666;">बेहतर अनुभव और ऑफलाइन एक्सेस के लिए ऐप इंस्टॉल करें।</p>
+        
+        <button id="btn-force-install" class="premium-btn" style="margin-top: 15px;">INSTALL NOW</button>
+        <p onclick="closeInstallPopup()" style="margin-top: 15px; font-size: 12px; color: #bbb; cursor: pointer;">Maybe Later</p>
+    </div>
+</div>
+  <script>let deferredPrompt;
+const installPopup = document.getElementById('install-popup');
+const installBtn = document.getElementById('btn-force-install');
+
+// 1. ब्राउज़र से इंस्टॉल सिग्नल पकड़ना
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // अगर यूजर ब्राउज़र में है, तो 3 सेकंड बाद पॉपअप दिखाओ (Force Popup)
+    setTimeout(() => {
+        if (!window.matchMedia('(display-mode: standalone)').matches) {
+            installPopup.style.display = 'flex';
+        }
+    }, 3000);
+});
+
+// 2. इंस्टॉल बटन क्लिक होने पर
+installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            installPopup.style.display = 'none';
+        }
+        deferredPrompt = null;
+    } else {
+        // अगर प्रॉम्प्ट उपलब्ध नहीं है (Force Method)
+        alert("ऊपर 3-डॉट्स (Menu) पर क्लिक करें और 'Install App' या 'Add to Home Screen' चुनें।");
+    }
+});
+
+function closeInstallPopup() {
+    installPopup.style.display = 'none';
+    // 10 मिनट बाद फिर से दिखाने के लिए (Optional Force)
+    setTimeout(() => {
+        if (!window.matchMedia('(display-mode: standalone)').matches) {
+            installPopup.style.display = 'flex';
+        }
+    }, 600000); 
+}
+
+// 3. चेक करें कि क्या ऐप पहले से खुला है (Installed Mode)
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log("App is running as an installed PWA.");
+        // इंस्टॉल होने के बाद पॉपअप कभी नहीं दिखेगा
+        installPopup.style.display = 'none';
+    }
+});</script>
 </html>
