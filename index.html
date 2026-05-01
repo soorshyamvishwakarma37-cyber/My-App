@@ -535,49 +535,47 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
     .then(() => console.log("Service Worker Registered"));
 }</script>      
-  <script>let deferredPrompt;
+  <script>// 1. PWA के 'Install' सिग्नल को स्टोर करने के लिए वेरिएबल
+let sewaAstraPrompt;
 
-// 1. ब्राउज़र से 'Install' सिग्नल को कैप्चर करना
+// 2. ब्राउज़र से 'Install' सिग्नल पकड़ना
 window.addEventListener('beforeinstallprompt', (e) => {
-    // डिफ़ॉल्ट पट्टी को रोकें ताकि हम अपने बटन से कंट्रोल कर सकें
+    // डिफ़ॉल्ट पट्टी को रोकें
     e.preventDefault();
-    deferredPrompt = e;
-    console.log("SewaAstra is ready for standard installation.");
+    sewaAstraPrompt = e;
+    console.log("SewaAstra Standard Install Ready!");
 });
 
-// 2. ग्लोबल क्लिक लिसनर (जहाँ भी 'Install' लिखा हो)
+// 3. ग्लोबल क्लिक लिसनर - यह हर जगह काम करेगा!
 document.addEventListener('click', async (e) => {
-    const clickedElement = e.target;
-    const btnText = (clickedElement.innerText || clickedElement.textContent).toLowerCase();
+    // चेक करें कि क्या क्लिक किए गए एलिमेंट में 'Install' शब्द है
+    const target = e.target;
+    const isInstallBtn = (target.innerText || target.textContent).toLowerCase().includes('install');
 
-    // चेक करें कि क्या क्लिक 'Install' बटन पर हुआ है
-    if (btnText.includes('install')) {
-        
-        if (deferredPrompt) {
-            // ब्राउज़र का असली इंस्टॉल पॉपअप दिखाएं
-            deferredPrompt.prompt();
+    if (isInstallBtn) {
+        // अगर ब्राउज़र ने 'Install' का सिग्नल दिया हुआ है
+        if (sewaAstraPrompt) {
+            sewaAstraPrompt.prompt();
             
-            // यूजर का फैसला चेक करें
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to install: ${outcome}`);
+            const { outcome } = await sewaAstraPrompt.userChoice;
+            console.log(`User response: ${outcome}`);
             
-            // एक बार इस्तेमाल होने के बाद इसे खाली करें
-            deferredPrompt = null;
+            // एक बार क्लिक होने पर इसे खाली करें (Chrome की सिक्योरिटी के लिए)
+            sewaAstraPrompt = null;
         } else {
             // अगर ऐप पहले से इंस्टॉल है या ब्राउज़र सपोर्ट नहीं कर रहा
             if (window.matchMedia('(display-mode: standalone)').matches) {
-                alert("SewaAstra पहले से ही आपके फोन में इंस्टॉल है! ✅");
+                alert("SewaAstra Hub आपके फोन में पहले से इंस्टॉल है! ✅");
             } else {
-                alert("इंस्टॉल करने के लिए ब्राउज़र के Menu (3-dots) में जाकर 'Install App' चुनें।");
+                alert("आपके ब्राउज़र में अभी 'Install' ऑप्शन उपलब्ध नहीं है। कृपया Chrome के 3-dots पर क्लिक करके 'Add to Home Screen' चुनें।");
             }
         }
     }
 });
 
-// 3. इंस्टॉल होने के बाद का इवेंट
+// 4. इंस्टॉल होने के बाद कन्फर्मेशन
 window.addEventListener('appinstalled', () => {
-    console.log('SewaAstra Pro successfully installed on device.');
-    alert("बधाई हो! SewaAstra अब आपके होम स्क्रीन पर उपलब्ध है।");
+    alert("SewaAstra सफलतापूर्वक इंस्टॉल हो गया है! 🚀");
 });</script>
 </body>
 </html>
