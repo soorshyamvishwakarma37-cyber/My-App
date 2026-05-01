@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SewaAstra Pro Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/SewaAstra/manifest.json">
     <style>
         :root { --accent: #FF8C00; --dark: #0f172a; --white: #ffffff; --glass: rgba(255, 255, 255, 0.85); }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Outfit', sans-serif; -webkit-tap-highlight-color:transparent; }
@@ -576,6 +577,61 @@ document.addEventListener('click', async (e) => {
 // 4. इंस्टॉल होने के बाद कन्फर्मेशन
 window.addEventListener('appinstalled', () => {
     alert("SewaAstra सफलतापूर्वक इंस्टॉल हो गया है! 🚀");
+});</script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/SewaAstra/sw.js')
+      .then(reg => console.log('SewaAstra SW Registered'))
+      .catch(err => console.log('SW Registration Failed', err));
+    });
+  }
+</script>
+  <script>const CACHE_NAME = 'sewaastra-cache-v1';
+const urlsToCache = [
+  '/SewaAstra/',
+  '/SewaAstra/index.html',
+  '/SewaAstra/manifest.json',
+  '/SewaAstra/icon-192.png',
+  '/SewaAstra/icon-512.png'
+];
+
+// Service Worker Install करना
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('SewaAstra Cache Opened');
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+// Fetch Event (Install Popup के लिए अनिवार्य)
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // अगर कैश में है तो वहां से दें, नहीं तो नेटवर्क से लें
+        return response || fetch(event.request);
+      })
+  );
+});
+
+// Activate Event - पुराने कैश को हटाना
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
 });</script>
 </body>
 </html>
