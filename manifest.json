@@ -1,7 +1,7 @@
  {
   "name": "SewaAstra Digital Hub",
   "short_name": "SewaAstra",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FF8C00",
