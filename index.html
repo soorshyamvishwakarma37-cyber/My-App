@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="hi">
 <head>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2118306969787937"
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SewaAstra Pro Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
-  <link rel="manifest" href="/SewaAstra/manifest.json">
+   <link rel="manifest" href="/My-App/manifest.json">
     <style>
         :root { --accent: #FF8C00; --dark: #0f172a; --white: #ffffff; --glass: rgba(255, 255, 255, 0.85); }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Outfit', sans-serif; -webkit-tap-highlight-color:transparent; }
@@ -464,174 +464,24 @@ function closeLegal() {
     document.getElementById('legal-modal').style.display = 'none';
 }
 </script>
- <script>let deferredPrompt;
-
-// 1. ब्राउज़र से 'Install' का सिग्नल पकड़ना
-window.addEventListener('beforeinstallprompt', (e) => {
-    // डिफ़ॉल्ट बैनर को रोकना
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // यहाँ आप अपना कोई भी 'Install' बटन दिखा सकते हैं
-    console.log("App is ready to install!");
-    showInstallUI(); 
-});
-
-function showInstallUI() {
-    // मान लीजिए आपके पास 'Menu' में एक इंस्टॉल बटन है
-    const installBtn = document.getElementById('install-app-btn');
-    if(installBtn) {
-        installBtn.style.display = "block";
-        installBtn.addEventListener('click', () => {
-            // इंस्टॉलेशन प्रॉम्प्ट दिखाना
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User installed the app');
-                }
-                deferredPrompt = null;
-            });
-        });
-    }
-}
-
-// 2. Service Worker Register करना (App को ऑफलाइन चलाने के लिए ज़रूरी)
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-    .then(() => console.log("Service Worker Registered"));
-}</script>
-   <script>let deferredPrompt;
-
-// 1. ब्राउज़र से 'Install' का सिग्नल पकड़ना
-window.addEventListener('beforeinstallprompt', (e) => {
-    // डिफ़ॉल्ट बैनर को रोकना
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // यहाँ आप अपना कोई भी 'Install' बटन दिखा सकते हैं
-    console.log("App is ready to install!");
-    showInstallUI(); 
-});
-
-function showInstallUI() {
-    // मान लीजिए आपके पास 'Menu' में एक इंस्टॉल बटन है
-    const installBtn = document.getElementById('install-app-btn');
-    if(installBtn) {
-        installBtn.style.display = "block";
-        installBtn.addEventListener('click', () => {
-            // इंस्टॉलेशन प्रॉम्प्ट दिखाना
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User installed the app');
-                }
-                deferredPrompt = null;
-            });
-        });
-    }
-}
-
-// 2. Service Worker Register करना (App को ऑफलाइन चलाने के लिए ज़रूरी)
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-    .then(() => console.log("Service Worker Registered"));
-}</script>      
-  <script>// 1. PWA के 'Install' सिग्नल को स्टोर करने के लिए वेरिएबल
-let sewaAstraPrompt;
-
-// 2. ब्राउज़र से 'Install' सिग्नल पकड़ना
-window.addEventListener('beforeinstallprompt', (e) => {
-    // डिफ़ॉल्ट पट्टी को रोकें
-    e.preventDefault();
-    sewaAstraPrompt = e;
-    console.log("SewaAstra Standard Install Ready!");
-});
-
-// 3. ग्लोबल क्लिक लिसनर - यह हर जगह काम करेगा!
-document.addEventListener('click', async (e) => {
-    // चेक करें कि क्या क्लिक किए गए एलिमेंट में 'Install' शब्द है
-    const target = e.target;
-    const isInstallBtn = (target.innerText || target.textContent).toLowerCase().includes('install');
-
-    if (isInstallBtn) {
-        // अगर ब्राउज़र ने 'Install' का सिग्नल दिया हुआ है
-        if (sewaAstraPrompt) {
-            sewaAstraPrompt.prompt();
-            
-            const { outcome } = await sewaAstraPrompt.userChoice;
-            console.log(`User response: ${outcome}`);
-            
-            // एक बार क्लिक होने पर इसे खाली करें (Chrome की सिक्योरिटी के लिए)
-            sewaAstraPrompt = null;
-        } else {
-            // अगर ऐप पहले से इंस्टॉल है या ब्राउज़र सपोर्ट नहीं कर रहा
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                alert("SewaAstra Hub आपके फोन में पहले से इंस्टॉल है! ✅");
-            } else {
-                alert("आपके ब्राउज़र में अभी 'Install' ऑप्शन उपलब्ध नहीं है। कृपया Chrome के 3-dots पर क्लिक करके 'Add to Home Screen' चुनें।");
-            }
-        }
-    }
-});
-
-// 4. इंस्टॉल होने के बाद कन्फर्मेशन
-window.addEventListener('appinstalled', () => {
-    alert("SewaAstra सफलतापूर्वक इंस्टॉल हो गया है! 🚀");
-});</script>
-  <script>
+<script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/SewaAstra/sw.js')
-      .then(reg => console.log('SewaAstra SW Registered'))
-      .catch(err => console.log('SW Registration Failed', err));
+      // GitHub Pages के लिए सही पाथ देना ज़रूरी है
+      navigator.serviceWorker.register('/My-App/sw.js')
+      .then(reg => console.log('SewaAstra SW Registered in My-App ✅'))
+      .catch(err => console.log('SW Registration Failed ❌', err));
     });
   }
+
+  // Install Popup को कैप्चर करना
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // अगर आप चाहते हैं कि पेज लोड होते ही ऑटोमेटिक पॉपअप आए (ब्राउज़र की अनुमति पर)
+    // तो आप यहाँ prompt() कॉल कर सकते हैं, लेकिन बटन क्लिक पर करना बेस्ट है।
+  });
 </script>
-  <script>const CACHE_NAME = 'sewaastra-cache-v1';
-const urlsToCache = [
-  '/SewaAstra/',
-  '/SewaAstra/index.html',
-  '/SewaAstra/manifest.json',
-  '/SewaAstra/icon-192.png',
-  '/SewaAstra/icon-512.png'
-];
-
-// Service Worker Install करना
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('SewaAstra Cache Opened');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-// Fetch Event (Install Popup के लिए अनिवार्य)
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // अगर कैश में है तो वहां से दें, नहीं तो नेटवर्क से लें
-        return response || fetch(event.request);
-      })
-  );
-});
-
-// Activate Event - पुराने कैश को हटाना
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});</script>
 </body>
 </html>
