@@ -230,13 +230,28 @@
             }
         }
 
-        // PWA & UI Logic
-        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
-        function triggerInstall() { 
-            if (deferredPrompt) { deferredPrompt.prompt(); } 
-            else { alert("App is already installed or your browser doesn't support PWA."); } 
-        }
+         
+const installBtn = document.getElementById('btn-force-install');
+const apkUrl = "https://freewebsitetoapp.cloudserverbox.com/app-data/free-apps/397134105186/2hlLzNDDbi/app-debug.apk";
 
+installBtn.addEventListener('click', async () => {
+    // 1. पहले PWA Install Prompt दिखाने की कोशिश करें (अगर उपलब्ध हो)
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            document.getElementById('install-popup').style.display = 'none';
+        }
+        deferredPrompt = null;
+    } 
+    // 2. अगर PWA Prompt नहीं है, तो Direct APK Download शुरू करें
+    else {
+        window.location.href = apkUrl;
+        // यूजर को एक मैसेज भी दिखा सकते हैं
+        alert("SewaAstra Pro APK डाउनलोड हो रहा है... कृपया इसे इंस्टॉल करें।");
+        document.getElementById('install-popup').style.display = 'none';
+    }
+});
         function shareApp() { 
             if (navigator.share) navigator.share({ title: 'SewaAstra Pro', text: 'Checkout 150+ Digital Tools!', url: window.location.href }); 
         }
