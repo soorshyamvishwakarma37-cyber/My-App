@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SewaAstra Pro Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
-   <link rel="manifest" href="/My-App/manifest.json">
+   <link rel="manifest" href="/My App/manifest.json">
+   <link rel="manifest" href="manifest.json">
     <style>
         :root { --accent: #FF8C00; --dark: #0f172a; --white: #ffffff; --glass: rgba(255, 255, 255, 0.85); }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Outfit', sans-serif; -webkit-tap-highlight-color:transparent; }
@@ -468,8 +469,8 @@ function closeLegal() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       // GitHub Pages के लिए सही पाथ देना ज़रूरी है
-      navigator.serviceWorker.register('/My-App/sw.js')
-      .then(reg => console.log('SewaAstra SW Registered in My-App ✅'))
+      navigator.serviceWorker.register('/My App/sw.js')
+      .then(reg => console.log('SewaAstra SW Registered in My App ✅'))
       .catch(err => console.log('SW Registration Failed ❌', err));
     });
   }

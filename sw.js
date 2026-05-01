@@ -1,8 +1,8 @@
 const CACHE_NAME = 'sewaastra-v2';
 const assets = [
-  '/My-App/',
-  '/My-App/index.html',
-  '/My-App/manifest.json'
+  '/My App/',
+  '/My App/index.html',
+  '/My App/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
