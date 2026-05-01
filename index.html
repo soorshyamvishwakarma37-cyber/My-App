@@ -61,6 +61,7 @@
         .info-footer { text-align:center; padding:20px 0 140px; opacity: 0.6; }
         .info-footer p { display:inline-block; margin:0 10px; font-size:11px; font-weight:600; cursor:pointer; }
     </style>
+    
 </head>
 <body>
 
@@ -79,7 +80,7 @@
         <header class="glass-header">
             <div class="top-bar">
                 <span class="menu-trigger" onclick="toggleMenu()">☰</span>
-                <b class="brand">SewaAstra</b>
+                <b class="brand">SewaAstra Digital Hub</b>
                 <button onclick="shareApp()" style="background:none; border:none; font-size:20px;">📤</button>
             </div>
             <div class="search-wrapper">
@@ -118,11 +119,7 @@
             <div class="label-pro">🌟 Lifestyle & Food</div>
             <div id="grid-life" class="premium-grid"></div>
 
-            <div class="info-footer">
-                <p onclick="alert('Terms applied')">Terms</p>
-                <p onclick="alert('Privacy Policy v4')">Privacy</p>
-                <p onclick="shareApp()">Support</p>
-            </div>
+ 
         </main>
 
         <footer class="bottom-nav-transparent">
@@ -190,30 +187,7 @@
             document.getElementById(id).innerHTML = html;
         }
 
-        // TOOL LAUNCHER (Self Tools Logic)
-        function launchTool(id, name) {
-            const modal = document.getElementById('tool-modal');
-            const ui = document.getElementById('tool-ui');
-            const res = document.getElementById('tool-result');
-            document.getElementById('tool-name').innerText = name;
-            res.style.display = "none";
-            modal.style.display = "flex";
-            
-            let content = "";
-            switch(id) {
-                case 'age': content = `<input type="date" id="in1" class="tool-input"><button class="premium-btn" onclick="exec('age')">Calculate Age</button>`; break;
-                case 'gst': content = `<input type="number" id="in1" placeholder="Amount" class="tool-input"><button class="premium-btn" onclick="exec('gst')">Add 18% GST</button>`; break;
-                case 'bmi': content = `<input type="number" id="in1" placeholder="Weight (kg)" class="tool-input"><input type="number" id="in2" placeholder="Height (cm)" class="tool-input"><button class="premium-btn" onclick="exec('bmi')">Check BMI</button>`; break;
-                case 'speak': content = `<input type="text" id="in1" placeholder="Type something..." class="tool-input"><button class="premium-btn" onclick="exec('speak')">Speak Now</button>`; break;
-                case 'coin': content = `<div id="c-res" style="font-size:60px; margin-bottom:10px;">🪙</div><button class="premium-btn" onclick="exec('coin')">Flip Coin</button>`; break;
-                case 'pass': content = `<button class="premium-btn" onclick="exec('pass')">Generate Strong Password</button>`; break;
-                case 'count': content = `<div id="c-res" style="font-size:50px; font-weight:900;">0</div><button class="premium-btn" onclick="exec('count')">TAP TO COUNT</button>`; break;
-                case 'vib': content = `<button class="premium-btn" onclick="exec('vib')">Vibrate Now</button>`; break;
-                case 'dice': content = `<div id="c-res" style="font-size:60px;">🎲</div><button class="premium-btn" onclick="exec('dice')">Roll Dice</button>`; break;
-                default: content = `<p>Coming Soon...</p>`;
-            }
-            ui.innerHTML = content;
-        }
+    
 
         function exec(type) {
             const res = document.getElementById('tool-result');
@@ -408,5 +382,70 @@ function closeTool() {
     count = 0;
 }
 </script>
+<div id="legal-modal" class="modal-overlay" style="display: none;">
+    <div class="glass-modal" style="border: 2px solid var(--accent);">
+        <span class="close" onclick="closeLegal()" style="position:absolute; right:20px; top:15px; font-size:28px; cursor:pointer;">&times;</span>
+        <h2 id="legal-title" style="color:var(--accent); margin-bottom:15px; font-weight:900;">Title</h2>
+        <div id="legal-body" style="text-align:left; font-size:14px; max-height:350px; overflow-y:auto; padding:10px; line-height:1.6; color:#333; background:#f9f9f9; border-radius:15px;">
+            </div>
+        <button class="premium-btn" onclick="closeLegal()" style="margin-top:20px;">I UNDERSTAND</button>
+    </div>
+</div>
+
+<div class="footer" style="padding: 100px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 0.69px; background: #fff;">
+     
+
+    <div class="copyright-section">
+          <p onclick="showLegal('terms')">Terms & Conditions</p>
+    <p onclick="showLegal('about')">About Us</p>
+      <p></p>
+        <p style="font-size: 12px; color: #888; margin-bottom: 5px;">
+            © 2026 <b>SewaAstra </b>. All Rights Reserved.
+        </p>
+        <p style="font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 1px;">
+            Designed by surya& Developed in Bhopal
+        </p>
+    </div>
+
+</div>
+
+<script>const legalData = {
+    terms: `
+        <b style="color:var(--accent)">1. Accuracy:</b> SewaAstra के टूल्स गणितीय गणनाओं पर आधारित हैं। हम 100% सटीकता की गारंटी नहीं देते, कृपया मुख्य कार्यों के लिए आधिकारिक पुष्टि करें।<br><br>
+        <b style="color:var(--accent)">2. Privacy:</b> हम आपका कोई भी निजी डेटा (नाम, नंबर, हिस्ट्री) स्टोर नहीं करते हैं। यह ऐप पूरी तरह 'Serverless' है।<br><br>
+        <b style="color:var(--accent)">3. Device Access:</b> ऐप Vibration, Flashlight और Speech APIs का उपयोग केवल आपके अनुभव को बेहतर बनाने के लिए करता है।<br><br>
+        <b style="color:var(--accent)">4. External Links:</b> Govt और Lifestyle सेक्शन के लिंक्स बाहरी वेबसाइटों के हैं, जिन पर हमारा नियंत्रण नहीं है।
+    `,
+    about: `
+        <b style="color:var(--accent)">SewaAstra Pro v6.0</b><br>
+        Bhopal's Most Advanced Utility Hub.<br><br>
+        हमारा उद्देश्य एक ही जगह पर सभी जरूरी डिजिटल टूल्स (150+) उपलब्ध कराना है ताकि आपका समय और फोन की स्टोरेज बच सके।<br><br>
+        <b>Features:</b><br>
+        ✅ No Data Collection<br>
+        ✅ Ultra Fast UI<br><br>
+        <b>Location:</b> Bhopal, Madhya Pradesh.
+    `
+};
+
+function showLegal(type) {
+    const modal = document.getElementById('legal-modal');
+    const title = document.getElementById('legal-title');
+    const body = document.getElementById('legal-body');
+
+    if (type === 'terms') {
+        title.innerText = "Terms & Conditions";
+        body.innerHTML = legalData.terms;
+    } else {
+        title.innerText = "About SewaAstra";
+        body.innerHTML = legalData.about;
+    }
+    modal.style.display = "flex";
+}
+
+function closeLegal() {
+    document.getElementById('legal-modal').style.display = 'none';
+}
+</script>
+ 
 </body>
 </html>
