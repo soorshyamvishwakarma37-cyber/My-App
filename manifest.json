@@ -8,14 +8,14 @@
   "theme_color": "#FF8C00",
   "icons": [
     {
-      "src": "/My App/icon-192.png",
+      "src": "/My App/Sewa.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "Sewa.png"
     },
     {
-      "src": "/My App/icon-512.png",
+      "src": "/My App/sewaastra.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "sewaastra.png"
     }
   ]
 }
