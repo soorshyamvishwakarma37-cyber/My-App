@@ -65,7 +65,26 @@
         .info-footer { text-align:center; padding:20px 0 140px; opacity: 0.6; }
         .info-footer p { display:inline-block; margin:0 10px; font-size:11px; font-weight:600; cursor:pointer; }
     </style>
-    
+    <style>.floating-install {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: linear-gradient(45deg, #FF8C00, #ffae42);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: moveBtn 2s infinite ease-in-out; /* Moving Effect */
+}
+
+@keyframes moveBtn {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}</style>
 </head>
 <body>
 
@@ -484,5 +503,47 @@ function closeLegal() {
     // तो आप यहाँ prompt() कॉल कर सकते हैं, लेकिन बटन क्लिक पर करना बेस्ट है।
   });
 </script>
+<button id="installBtn" class="floating-install" style="display: none;">
+  <span>📲 Install SewaAstra</span>
+</button>
+<script>let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+
+// 1. चेक करें कि क्या ऐप पहले से इंस्टॉल है
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+    // अगर यूजर पहले से ऐप के अंदर है, तो बटन छुपाएं
+    installBtn.style.display = 'none';
+}
+
+// 2. ब्राउज़र से इंस्टॉल सिग्नल पकड़ना
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // चेक करें: अगर ऐप इंस्टॉल नहीं है, तभी बटन दिखाएं
+    if (!window.matchMedia('(display-mode: standalone)').matches) {
+        installBtn.style.display = 'block';
+    }
+});
+
+// 3. बटन पर क्लिक करने पर क्या होगा
+installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+            console.log('User installed the app');
+            installBtn.style.display = 'none'; // इंस्टॉल होते ही बटन छुपाएं
+        }
+        deferredPrompt = null;
+    }
+});
+
+// 4. अगर ब्राउज़र में ऐप इंस्टॉल हो गया तो बटन तुरंत छुपाएं
+window.addEventListener('appinstalled', (event) => {
+    console.log('App successfully installed');
+    installBtn.style.display = 'none';
+});</script>
 </body>
 </html>
